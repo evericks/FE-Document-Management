@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiURL: 'http://api-onewh.evericks.com',
+    apiURL: 'http://api-document-management.evericks.com',
 };
