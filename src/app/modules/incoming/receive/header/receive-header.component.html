@@ -1,0 +1,80 @@
+<div
+    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-0 flex-col border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between md:px-8"
+    >
+        <!-- Title -->
+        <div class="flex flex-col">
+            <div class="text-2xl font-extrabold tracking-tight">
+                Receive Documents
+            </div>
+            <!-- <breadcrumb></breadcrumb> -->
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
+            <!-- <div class="flex">
+                <theme-selector></theme-selector>
+            </div> -->
+            <!-- <div class="flex">
+                <form [formGroup]="quickFilterForm">
+                    <mat-form-field
+                        class="fuse-mat-dense fuse-mat-rounded min-w-64"
+                        subscriptSizing="dynamic"
+                    >
+                        <input
+                            type="text"
+                            matInput
+                            placeholder="Search"
+                            [formControlName]="'quickFilter'"
+                        />
+                    </mat-form-field>
+                </form>
+            </div> -->
+            <!-- <button
+                mat-raised-button
+                color="primary"
+                [matBadge]="selectedRows.length"
+                matBadgeColor="accent"
+                (click)="onSelectAllButtonClicked()"
+            >
+                <mat-icon
+                    svgIcon="heroicons_outline:arrow-top-right-on-square"
+                ></mat-icon>
+            </button>
+            <button
+                [disabled]="selectedRows.length <= 0"
+                mat-raised-button
+                color="accent"
+                (click)="onClearSeletionButtonClicked()"
+            >
+                <mat-icon svgIcon="heroicons_outline:no-symbol"></mat-icon>
+            </button>
+            <button
+                [disabled]="selectedRows.length <= 0"
+                mat-raised-button
+                color="warn"
+                (click)="onRemoveRangeButtonClicked()"
+            >
+                <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+            </button>
+            <button mat-raised-button color="primary">
+                <mat-icon svgIcon="heroicons_outline:plus-circle"></mat-icon>
+            </button> -->
+        </div>
+    </div>
+
+    <div class="flex min-w-0 flex-auto flex-col">
+        <!-- Main -->
+        <ng-container>
+            <ag-grid-angular
+                class="ag-theme-material h-full w-full"
+                [sideBar]="true"
+                [columnDefs]="colDefs"
+                [rowData]="rowData"
+                [gridOptions]="gridOptions"
+            ></ag-grid-angular>
+        </ng-container>
+    </div>
+</div>
