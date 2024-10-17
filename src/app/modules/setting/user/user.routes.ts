@@ -4,6 +4,8 @@ import { UserHeaderComponent } from './header/user-header.component';
 import { UserComponent } from './user.component';
 import { inject } from '@angular/core';
 import { UserService } from './user.service';
+import { RoleService } from '../role/role.service';
+import { DepartmentService } from '../department/department.service';
 
 export default [
     {
@@ -21,7 +23,9 @@ export default [
                 resolve: {
                     combinedData: () =>
                         forkJoin({
-                            roles: inject(UserService).getUsers(),
+                            users: inject(UserService).getUsers(),
+                            roles: inject(RoleService).getRoles(),
+                            departments: inject(DepartmentService).getDepartments(),
                         }),
                 },
             },

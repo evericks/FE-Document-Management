@@ -11,6 +11,12 @@ import { ColDef, GridApi, GridOptions } from 'ag-grid-community';
 import { globalGridOptions } from 'app/modules/ag-grid/configuration/ag-grid-global-config';
 import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
 import { UserService } from '../user.service';
+import { Role } from 'app/types/role.type';
+import { Department } from 'app/types/department.type';
+import { RoleService } from '../../role/role.service';
+import { DepartmentService } from '../../department/department.service';
+import { getItemNameById } from 'app/utils/common.utils';
+import { HotkeyService } from 'app/modules/hotkey/hotkey.service';
 
 @Component({
     selector: 'user-header',
@@ -24,77 +30,27 @@ export class UserHeaderComponent implements OnInit {
     private gridApi: GridApi;
     quickFilter: FormControl = new FormControl(null);
     rowData: any[] = [];
+    roles: Role[] = [];
+    departments: Department[] = [];
 
     gridOptions: GridOptions = {
         ...globalGridOptions,
         onGridReady: (params) => {
-            this.gridApi = params.api
+            this.gridApi = params.api;
+            const allColumnIds = [];
+            this.gridApi.getAllGridColumns().forEach(column => {
+                allColumnIds.push(column.getId());
+            });
+            this.gridApi.autoSizeColumns(allColumnIds);
         }
     }
 
-    colDefs: ColDef[] = [
-        {
-            headerName: 'Actions',
-            field: 'actions',
-            cellRenderer: 'actionCellRenderer',
-            sortable: false,
-            filter: false,
-            cellClass: () => {
-                return 'flex justify-center item-center';
-            },
-            cellRendererParams: {
-                onRemove: this.onRemoveButtonClicked.bind(this),
-                onSave: this.onSaveButtonClicked.bind(this),
-                showUpdateIcon: false
-            },
-        },
-        {
-            field: 'username',
-            headerName: 'Username',
-            filter: 'agTextColumnFilter',
-        },
-        {
-            field: 'name',
-            headerName: 'Name',
-            filter: 'agTextColumnFilter',
-            onCellValueChanged: (params) => this.onCellValueChanged(params.data),
-            editable: true,
-        },
-        {
-            field: 'gender',
-            headerName: 'Gender',
-            filter: 'agTextColumnFilter',
-        },
-        {
-            field: 'phone',
-            headerName: 'Phone',
-            filter: 'agTextColumnFilter',
-            onCellValueChanged: (params) => this.onCellValueChanged(params.data),
-            editable: true,
-        },
-        {
-            field: 'birthdate',
-            headerName: 'Birthdate',
-            filter: 'agDateColumnFilter',
-            cellEditor: 'agDateCellEditor',
-            valueFormatter: (params) => formatToMediumDate(params.value),
-            onCellValueChanged: (params) => this.onCellValueChanged(params.data),
-            editable: true,
-        },
-        {
-            field: 'status',
-            headerName: 'Status',
-            filter: 'agTextColumnFilter',
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Created At',
-            valueFormatter: (params) => formatToMedium(params.value)
-        },
-    ];
+    colDefs: ColDef[];
 
     constructor(
         private _userService: UserService,
+        private _roleService: RoleService,
+        private _departmentService: DepartmentService,
         private _fuseConfirmationService: FuseConfirmationService
     ) { }
 
@@ -103,9 +59,131 @@ export class UserHeaderComponent implements OnInit {
             this.rowData = users;
         });
 
+        this._roleService.roles$.subscribe(roles => {
+            this.roles = roles;
+        });
+
+        this._departmentService.departments$.subscribe(departments => {
+            this.departments = departments;
+        });
+
+        this.initColDefs();
+
         this.quickFilter.valueChanges.subscribe(value => {
             this.gridApi.setGridOption('quickFilterText', value);
         });
+    }
+
+    initColDefs() {
+        this.colDefs = [
+            {
+                headerName: 'Actions',
+                field: 'actions',
+                cellRenderer: 'actionCellRenderer',
+                sortable: false,
+                filter: false,
+                cellClass: () => {
+                    return 'flex justify-center item-center';
+                },
+                cellRendererParams: (params) => {
+                    const isGroupRow = params.node.group;
+                    return {
+                        display: !isGroupRow,
+                        onRemove: this.onRemoveButtonClicked.bind(this),
+                        onSave: this.onSaveButtonClicked.bind(this),
+                        showUpdateIcon: false
+                    };
+                }
+            },
+            {
+                field: 'username',
+                headerName: 'Username',
+                filter: 'agTextColumnFilter',
+                editable: (params) => params.data.isNew
+            },
+            {
+                field: 'name',
+                headerName: 'Name',
+                filter: 'agTextColumnFilter',
+                onCellValueChanged: (params) => this.onCellValueChanged(params.data),
+                editable: true,
+            },
+            {
+                field: 'roleId',
+                headerName: 'Role',
+                cellEditor: 'autocompleteCellEditorRenderer',
+                filterValueGetter: (params) => getItemNameById(this.roles, params.data?.roleId),
+                cellEditorParams: {
+                    options: this.roles,
+                    required: true,
+                },
+                valueGetter: (params) => getItemNameById(this.roles, params.data?.roleId),
+                valueFormatter: (params) => getItemNameById(this.roles, params.data?.roleId),
+                onCellValueChanged: (params) => {
+                    this.onCellValueChanged(params.data);
+                },
+                editable: true,
+            },
+            {
+                field: 'departmentId',
+                headerName: 'Department',
+                filterValueGetter: (params) => getItemNameById(this.departments, params.data?.departmentId),
+                cellEditor: 'autocompleteCellEditorRenderer',
+                cellEditorParams: {
+                    options: this.departments,
+                    required: true,
+                },
+                valueGetter: (params) => getItemNameById(this.departments, params.data?.departmentId),
+                valueFormatter: (params) => getItemNameById(this.departments, params.data?.departmentId),
+                onCellValueChanged: (params) => {
+                    this.onCellValueChanged(params.data);
+                },
+                editable: true,
+            },
+            {
+                field: 'gender',
+                headerName: 'Gender',
+                editable: true,
+                cellEditor: 'agSelectCellEditor',
+                cellEditorParams: {
+                    values: ['Male', 'Female', 'Other'],
+                },
+                onCellValueChanged: (params) => this.onCellValueChanged(params.data),
+            },
+            {
+                field: 'phone',
+                headerName: 'Phone',
+                filter: 'agTextColumnFilter',
+                onCellValueChanged: (params) => this.onCellValueChanged(params.data),
+                editable: true,
+            },
+            {
+                field: 'birthdate',
+                headerName: 'Birthdate',
+                filter: 'agDateColumnFilter',
+                cellEditor: 'agDateCellEditor',
+                cellDataType: 'date',
+                valueFormatter: (params) => formatToMediumDate(params.value),
+                onCellValueChanged: (params) => this.onCellValueChanged(params.data),
+                editable: true,
+            },
+            {
+                field: 'status',
+                headerName: 'Status',
+                cellRenderer: 'statusCellRenderer',
+                editable: true,
+                cellEditor: 'agSelectCellEditor',
+                cellEditorParams: {
+                    values: ['Active', 'Inactive'],
+                },
+                onCellValueChanged: (params) => this.onCellValueChanged(params.data),
+            },
+            {
+                field: 'createdAt',
+                headerName: 'Created At',
+                valueFormatter: (params) => formatToMedium(params.value)
+            },
+        ];
     }
 
     onAddButtonClicked() {
@@ -114,8 +192,9 @@ export class UserHeaderComponent implements OnInit {
         }
         const newRow = {
             id: '',
-            name: '',
+            name: null,
             createdAt: new Date().toISOString(),
+            status: 'Active',
             isNew: true
         };
         // Thêm hàng mới vào đầu mảng
@@ -141,7 +220,9 @@ export class UserHeaderComponent implements OnInit {
     }
 
     onCellValueChanged(data) {
-        this._userService.updateUser(data.id, data).subscribe();
+        if (!data.isNew) {
+            this._userService.updateUser(data.id, data).subscribe();
+        }
     }
 
     onSaveButtonClicked(data) {

@@ -28,7 +28,12 @@ export class RoleHeaderComponent implements OnInit {
     gridOptions: GridOptions = {
         ...globalGridOptions,
         onGridReady: (params) => {
-            this.gridApi = params.api
+            this.gridApi = params.api;
+            const allColumnIds = [];
+            this.gridApi.getAllGridColumns().forEach(column => {
+                allColumnIds.push(column.getId());
+            });
+            this.gridApi.autoSizeColumns(allColumnIds);
         }
     }
 
@@ -83,7 +88,7 @@ export class RoleHeaderComponent implements OnInit {
         }
         const newRow = {
             id: '',
-            name: '',
+            name: null,
             createdAt: new Date().toISOString(),
             isNew: true
         };
@@ -110,7 +115,9 @@ export class RoleHeaderComponent implements OnInit {
     }
 
     onCellValueChanged(data) {
-        this._roleService.updateRole(data.id, data).subscribe();
+        if (!data.isNew) {
+            this._roleService.updateRole(data.id, data).subscribe();
+        }
     }
 
     onSaveButtonClicked(data) {

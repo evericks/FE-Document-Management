@@ -35,6 +35,7 @@ export class ReceiveHeaderComponent implements OnInit {
         {
             field: 'receiveDate',
             headerName: 'Receive Date',
+            filter: 'agDateColumnFilter',
         },
         {
             field: 'categoryId',

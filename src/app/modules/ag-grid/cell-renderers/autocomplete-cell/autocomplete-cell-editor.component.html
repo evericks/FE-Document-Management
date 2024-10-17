@@ -1,0 +1,21 @@
+<mat-form-field class="w-full">
+    <input
+        #inputElement
+        type="text"
+        matInput
+        [placeholder]="placeholder"
+        [formControl]="itemControl"
+        [matAutocomplete]="auto"
+    />
+    <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="onSelect($event)"
+    >
+        <mat-option
+            *ngFor="let item of filteredItems | async"
+            [value]="item.name"
+        >
+            {{ item.name }}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

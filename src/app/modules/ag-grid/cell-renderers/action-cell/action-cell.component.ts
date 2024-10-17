@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { HotkeyService } from 'app/modules/hotkey/hotkey.service';
 
 @Component({
     selector: 'action-cell',
@@ -11,23 +12,32 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 })
 export class ActionCellComponent implements ICellRendererAngularComp {
     private params: any;
+    display: boolean = true;
     showUpdateIcon: boolean = true;
     showRemoveIcon: boolean = true;
     showExpandIcon: boolean = false;
     showSettingIcon: boolean = false;
     isNew: boolean = false;
 
-    constructor() { }
+    constructor(
+        private _hotkeyService: HotkeyService,
+    ) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+    }
 
     // Phương thức ag-Grid gọi để khởi tạo component
     agInit(params: any): void {
         this.params = params;
+        this.display = params.display ?? true;
         this.showExpandIcon = params.showExpandIcon ?? false;
         this.showSettingIcon = params.showSettingIcon ?? false;
         this.showUpdateIcon = params.showUpdateIcon ?? true;
-        this.isNew = params.data.isNew ?? false;
+        this.isNew = params.data?.isNew ?? false;
+
+        if (this.params.data?.isNew) {
+            this._hotkeyService.listenForCtrlEnter(this.onSave.bind(this));
+        }
     }
 
     // Hàm xử lý sự kiện click Remove
@@ -67,6 +77,7 @@ export class ActionCellComponent implements ICellRendererAngularComp {
 
     refresh(params: any): boolean {
         this.params = params;
+        this.display = params.display ?? true;
         this.showExpandIcon = params.showExpandIcon ?? false;
         this.showSettingIcon = params.showSettingIcon ?? false;
         this.showUpdateIcon = params.showUpdateIcon ?? true;
