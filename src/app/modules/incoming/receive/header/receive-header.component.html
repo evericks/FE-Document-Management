@@ -14,54 +14,26 @@
         </div>
         <!-- Actions -->
         <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
-            <!-- <div class="flex">
-                <theme-selector></theme-selector>
-            </div> -->
-            <!-- <div class="flex">
-                <form [formGroup]="quickFilterForm">
-                    <mat-form-field
-                        class="fuse-mat-dense fuse-mat-rounded min-w-64"
-                        subscriptSizing="dynamic"
-                    >
-                        <input
-                            type="text"
-                            matInput
-                            placeholder="Search"
-                            [formControlName]="'quickFilter'"
-                        />
-                    </mat-form-field>
-                </form>
-            </div> -->
-            <!-- <button
+            <div class="flex">
+                <mat-form-field
+                    class="fuse-mat-dense fuse-mat-rounded min-w-64"
+                    subscriptSizing="dynamic"
+                >
+                    <input
+                        type="text"
+                        matInput
+                        placeholder="Search"
+                        [formControl]="quickFilter"
+                    />
+                </mat-form-field>
+            </div>
+            <button
                 mat-raised-button
                 color="primary"
-                [matBadge]="selectedRows.length"
-                matBadgeColor="accent"
-                (click)="onSelectAllButtonClicked()"
+                (click)="onAddButtonClicked()"
             >
-                <mat-icon
-                    svgIcon="heroicons_outline:arrow-top-right-on-square"
-                ></mat-icon>
+                <mat-icon svgIcon="heroicons_outline:plus"></mat-icon>
             </button>
-            <button
-                [disabled]="selectedRows.length <= 0"
-                mat-raised-button
-                color="accent"
-                (click)="onClearSeletionButtonClicked()"
-            >
-                <mat-icon svgIcon="heroicons_outline:no-symbol"></mat-icon>
-            </button>
-            <button
-                [disabled]="selectedRows.length <= 0"
-                mat-raised-button
-                color="warn"
-                (click)="onRemoveRangeButtonClicked()"
-            >
-                <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
-            </button>
-            <button mat-raised-button color="primary">
-                <mat-icon svgIcon="heroicons_outline:plus-circle"></mat-icon>
-            </button> -->
         </div>
     </div>
 
@@ -69,7 +41,7 @@
         <!-- Main -->
         <ng-container>
             <ag-grid-angular
-                class="ag-theme-material h-full w-full"
+                class="ag-theme-material h-full"
                 [sideBar]="true"
                 [columnDefs]="colDefs"
                 [rowData]="rowData"

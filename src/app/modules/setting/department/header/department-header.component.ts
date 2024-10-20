@@ -29,11 +29,6 @@ export class DepartmentHeaderComponent implements OnInit {
         ...globalGridOptions,
         onGridReady: (params) => {
             this.gridApi = params.api;
-            const allColumnIds = [];
-            this.gridApi.getAllGridColumns().forEach(column => {
-                allColumnIds.push(column.getId());
-            });
-            this.gridApi.autoSizeColumns(allColumnIds);
         }
     }
 
@@ -44,14 +39,19 @@ export class DepartmentHeaderComponent implements OnInit {
             cellRenderer: 'actionCellRenderer',
             sortable: false,
             filter: false,
+            maxWidth: 200,
             cellClass: () => {
                 return 'flex justify-center item-center';
             },
-            cellRendererParams: {
-                onRemove: this.onRemoveButtonClicked.bind(this),
-                onSave: this.onSaveButtonClicked.bind(this),
-                showUpdateIcon: false
-            },
+            cellRendererParams: (params) => {
+                const isGroupRow = params.node.group;
+                return {
+                    display: !isGroupRow,
+                    onRemove: this.onRemoveButtonClicked.bind(this),
+                    onSave: this.onSaveButtonClicked.bind(this),
+                    showUpdateIcon: false
+                };
+            }
         },
         {
             field: 'name',

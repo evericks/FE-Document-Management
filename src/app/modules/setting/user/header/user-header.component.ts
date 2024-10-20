@@ -9,14 +9,13 @@ import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions } from 'ag-grid-community';
 import { globalGridOptions } from 'app/modules/ag-grid/configuration/ag-grid-global-config';
-import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
-import { UserService } from '../user.service';
-import { Role } from 'app/types/role.type';
 import { Department } from 'app/types/department.type';
-import { RoleService } from '../../role/role.service';
-import { DepartmentService } from '../../department/department.service';
+import { Role } from 'app/types/role.type';
 import { getItemNameById } from 'app/utils/common.utils';
-import { HotkeyService } from 'app/modules/hotkey/hotkey.service';
+import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
+import { DepartmentService } from '../../department/department.service';
+import { RoleService } from '../../role/role.service';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'user-header',

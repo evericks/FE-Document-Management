@@ -33,6 +33,7 @@ export class ActionCellComponent implements ICellRendererAngularComp {
         this.showExpandIcon = params.showExpandIcon ?? false;
         this.showSettingIcon = params.showSettingIcon ?? false;
         this.showUpdateIcon = params.showUpdateIcon ?? true;
+        this.showRemoveIcon = params.showRemoveIcon ?? true;
         this.isNew = params.data?.isNew ?? false;
 
         if (this.params.data?.isNew) {
