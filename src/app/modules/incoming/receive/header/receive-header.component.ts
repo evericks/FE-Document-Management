@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { Router, RouterModule } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions } from 'ag-grid-community';
 import { globalGridOptions } from 'app/modules/ag-grid/configuration/ag-grid-global-config';
-import { ReceiveDocumentService } from '../receive.service';
-import { Document } from 'app/types/document.type';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DocumentType } from 'app/types/document-type.type';
-import { DocumentStatus } from 'app/types/document-status.type';
-import { getItemNameById } from 'app/utils/common.utils';
-import { User } from 'app/types/user.type';
-import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
-import { UserService } from 'app/modules/setting/user/user.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DocumentStatusService } from 'app/modules/setting/document-status/document-status.service';
 import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
+import { UserService } from 'app/modules/setting/user/user.service';
+import { DocumentStatus } from 'app/types/document-status.type';
+import { DocumentType } from 'app/types/document-type.type';
+import { Document } from 'app/types/document.type';
+import { User } from 'app/types/user.type';
+import { getItemNameById } from 'app/utils/common.utils';
+import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
+import { ReceiveDocumentService } from '../receive.service';
 
 @Component({
     selector: 'receive-header',
@@ -55,7 +54,7 @@ export class ReceiveHeaderComponent implements OnInit {
         private _userService: UserService,
         private _documentStatusService: DocumentStatusService,
         private _documentTypeService: DocumentTypeService,
-        private _fuseConfirmationService: FuseConfirmationService
+        private _router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -98,7 +97,7 @@ export class ReceiveHeaderComponent implements OnInit {
                     const isGroupRow = params.node.group;
                     return {
                         display: !isGroupRow,
-                        onRemove: this.onRemoveButtonClicked.bind(this),
+                        onEdit: this.onEditButtonClicked.bind(this),
                         showRemoveIcon: false
                     };
                 }
@@ -182,6 +181,7 @@ export class ReceiveHeaderComponent implements OnInit {
                 onCellValueChanged: (params) => {
                     this.onCellValueChanged(params.data);
                 },
+                cellRenderer: 'statusCellRenderer',
             },
             {
                 field: 'isInternal',
@@ -194,6 +194,7 @@ export class ReceiveHeaderComponent implements OnInit {
             {
                 field: 'createdAt',
                 headerName: 'Created At',
+                filter: 'agDateColumnFilter',
                 valueFormatter: (params) => formatToMedium(params.value)
             },
         ];
@@ -205,25 +206,8 @@ export class ReceiveHeaderComponent implements OnInit {
         }
     };
 
-    onAddButtonClicked() {
+    onEditButtonClicked(data) {
 
-    }
-
-    onRemoveButtonClicked(data) {
-        this._fuseConfirmationService.open({
-            title: 'Warning',
-        }).afterClosed().subscribe(result => {
-            if (result === 'confirmed') {
-                if (data.isNew) {
-                    this.gridApi.applyTransaction({ remove: [data] });
-                    this.rowData.shift();
-                } else {
-                    this._receiveDocumentService.deleteDocument(data.id).subscribe(() => {
-                        this.gridApi.applyTransaction({ remove: [data] });
-                        this.rowData.shift();
-                    });
-                }
-            }
-        })
+        this._router.navigate(['/incoming-documents/receive', data.id]);
     }
 }

@@ -63,6 +63,7 @@ export class RoleHeaderComponent implements OnInit {
         {
             field: 'createdAt',
             headerName: 'Created At',
+            filter: 'agDateColumnFilter',
             valueFormatter: (params) => formatToMedium(params.value)
         },
     ];

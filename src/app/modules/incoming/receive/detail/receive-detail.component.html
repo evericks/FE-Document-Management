@@ -1,0 +1,142 @@
+<div
+    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-0 flex-col border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between md:px-8"
+    >
+        <!-- Title -->
+        <div class="flex flex-col">
+            <div class="text-2xl font-extrabold tracking-tight">
+                Receive Documents Information
+            </div>
+            <!-- <breadcrumb></breadcrumb> -->
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
+            <div class="flex"></div>
+        </div>
+    </div>
+
+    <div class="flex min-w-0 flex-auto flex-col">
+        <ng-container *ngIf="receiveDocument$ | async as receiveDocument">
+            <div class="border-b bg-gray-50 px-6 py-8 md:px-8">
+                <div class="grid grid-cols-3 gap-8">
+                    <div class="flex w-full flex-col gap-4">
+                        <div class="w-full">
+                            <div class="font-bold">Issuing Agency</div>
+                            <div class="">
+                                {{ receiveDocument.issuingAgency }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Document Title</div>
+                            <div class="">
+                                {{ receiveDocument.name }}
+                            </div>
+                        </div>
+                        <ng-container *ngIf="receiveDocument.content">
+                            <div class="w-full">
+                                <div class="font-bold">Document Content</div>
+                                <div class="">
+                                    {{ receiveDocument.content }}
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="w-full">
+                            <div class="font-bold">Document Code</div>
+                            <div class="">
+                                {{ receiveDocument.code }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Document Type</div>
+                            <div class="">
+                                {{
+                                    displayDocumentTypeWithId(
+                                        receiveDocument.documentTypeId
+                                    )
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex w-full flex-col gap-4">
+                        <div class="w-full">
+                            <div class="font-bold">Receive Date</div>
+                            <div class="">
+                                {{
+                                    receiveDocument.createdAt | date: 'fullDate'
+                                }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Signatory</div>
+                            <div class="">
+                                <!-- {{ receiveDocument.createdAt | date: 'fullDate' }} -->
+                                None
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Internal Document</div>
+                            <div class="">
+                                <!-- {{ receiveDocument.createdAt | date: 'fullDate' }} -->
+                                {{ receiveDocument.isInternal ? 'Yes' : 'No' }}
+                            </div>
+                        </div>
+
+                        <div class="w-full">
+                            <div class="font-bold">Archived</div>
+                            <div class="">
+                                <!-- {{ receiveDocument.createdAt | date: 'fullDate' }} -->
+                                {{ receiveDocument.isArchived ? 'Yes' : 'No' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex w-full flex-col gap-4">
+                        <div class="w-full">
+                            <div class="font-bold">Due Date</div>
+                            <div [class]="receiveDocument.dueDate | dueDate">
+                                {{ receiveDocument.dueDate | date: 'fullDate' }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Sender</div>
+                            <div class="">
+                                {{
+                                    displayUserWithId(receiveDocument.senderId)
+                                }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Receiver</div>
+                            <div class="">
+                                {{
+                                    displayUserWithId(
+                                        receiveDocument.receiverId
+                                    )
+                                }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-bold">Document Status</div>
+                            <div
+                                class="mt-1 inline-block px-2"
+                                [class]="
+                                    displayDocumentStatusWithId(
+                                        receiveDocument.statusId
+                                    ) | status
+                                "
+                            >
+                                {{
+                                    displayDocumentStatusWithId(
+                                        receiveDocument.statusId
+                                    )
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

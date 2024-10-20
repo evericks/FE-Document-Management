@@ -16,11 +16,11 @@ export class DueDatePipe implements PipeTransform {
 
         // Logic kiểm tra và trả về màu tương ứng
         if (daysDifference < 0) {
-            return 'text-red';  // Ngày đã quá hạn
+            return 'text-red-500';  // Ngày đã quá hạn
         } else if (daysDifference <= 3) {
-            return 'text-orange';  // Còn lại ít hơn hoặc bằng 3 ngày trước hạn
+            return 'text-orange-500';  // Còn lại ít hơn hoặc bằng 3 ngày trước hạn
         } else {
-            return 'text-green';  // Ngày chưa quá hạn
+            return 'text-green-500';  // Ngày chưa quá hạn
         }
     }
 }

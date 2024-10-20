@@ -1,7 +1,6 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { formatToMediumDate } from 'app/utils/datetime.utils';
 import { DateTime } from 'luxon'; // Sử dụng Luxon để tính toán ngày
 
 @Component({
@@ -13,11 +12,9 @@ import { DateTime } from 'luxon'; // Sử dụng Luxon để tính toán ngày
 export class DueDateCellRendererComponent implements ICellRendererAngularComp {
     public dueDate: string;
     public dueDateClass: string;
-    public dueDateFormated: string;
 
     agInit(params: any): void {
         this.dueDate = params.value;
-        this.dueDateFormated = formatToMediumDate(this.dueDate);
         this.setDueDateColor();
     }
 

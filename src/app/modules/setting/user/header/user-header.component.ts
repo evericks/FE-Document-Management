@@ -180,6 +180,7 @@ export class UserHeaderComponent implements OnInit {
             {
                 field: 'createdAt',
                 headerName: 'Created At',
+                filter: 'agDateColumnFilter',
                 valueFormatter: (params) => formatToMedium(params.value)
             },
         ];
