@@ -18,62 +18,50 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'incoming-documents',
-        title: 'Incoming Documents',
+        title: 'Văn Bản Đến',
         type: 'group',
         children: [
             {
                 id: 'incoming-documents.reception-and-registration',
-                title: 'Reception & Registration',
+                title: 'Tiếp Nhận & Đăng Ký',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-down',
                 children: [
                     {
                         id: 'incoming-documents.receive',
-                        title: 'Receive Documents',
+                        title: 'Tiếp Nhận Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/receive'
                     },
                     {
                         id: 'incoming-documents.classify',
-                        title: 'Classify Documents',
+                        title: 'Phân Loại Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/classify'
                     },
                     {
                         id: 'incoming-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đến',
                         type: 'basic',
                         link: '/incoming-documents/register'
-                    },
-                    {
-                        id: 'incoming-documents.distribution',
-                        title: 'Distribution Documents',
-                        type: 'basic',
-                        link: '/incoming-documents/distribution'
                     },
                 ]
             },
             {
                 id: 'incoming-documents.processing',
-                title: 'Processing',
+                title: 'Xử Lý',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-magnifying-glass',
                 children: [
                     {
                         id: 'incoming-documents.manage-and-process',
-                        title: 'Manage & Process',
+                        title: 'Quản Lý & Xử Lý',
                         type: 'basic',
                         link: '/incoming-documents/manage-and-process'
                     },
                     {
-                        id: 'incoming-documents.darft-and-feedback',
-                        title: 'Draft & Feedback',
-                        type: 'basic',
-                        link: '/incoming-documents/darft-and-feedback'
-                    },
-                    {
                         id: 'incoming-documents.tracking',
-                        title: 'Tracking Documents',
+                        title: 'Theo Dõi Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/tracking'
                     },
@@ -81,19 +69,19 @@ export const defaultNavigation: FuseNavigationItem[] = [
             },
             {
                 id: 'incoming-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'incoming-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/incoming-documents/temporary-storage'
                     },
                     {
                         id: 'incoming-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/incoming-documents/long-term-storage'
                     }
@@ -103,70 +91,50 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'outgoing-documents',
-        title: 'Outgoing Documents',
+        title: 'Văn Bản Đi',
         type: 'group',
         children: [
             {
                 id: 'outgoing-documents.editing-and-publishing',
-                title: 'Editing and Publishing',
+                title: 'Tạo Và Gửi Văn Bản',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-up',
                 children: [
                     {
                         id: 'outgoing-documents.editings',
-                        title: 'Editting Documents',
+                        title: 'Văn Bản Nháp',
                         type: 'basic',
                         link: '/outgoing-documents/editings'
                     },
                     {
                         id: 'outgoing-documents.confirm-and-approve',
-                        title: 'Confirm & Approve',
+                        title: 'Phê Duyệt Văn Bản',
                         type: 'basic',
                         link: '/outgoing-documents/confirm-and-approve'
                     },
                     {
                         id: 'outgoing-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đi',
                         type: 'basic',
                         link: '/outgoing-documents/register'
                     },
                 ]
             },
             {
-                id: 'outgoing-documents.tracking',
-                title: 'Tracking',
-                type: 'collapsable',
-                icon: 'heroicons_outline:document-magnifying-glass',
-                children: [
-                    {
-                        id: 'outgoing-documents.tracking-process',
-                        title: 'Tracking Process',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-process'
-                    },
-                    {
-                        id: 'outgoing-documents.tracking-feedback',
-                        title: 'Tracking Feedback',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-feedback'
-                    },
-                ]
-            },
-            {
                 id: 'outgoing-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'outgoing-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/temporary-storage'
                     },
                     {
                         id: 'outgoing-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/long-term-storage'
                     }
@@ -176,26 +144,26 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'settings',
-        title: 'Setting',
+        title: 'Cài Đặt',
         type: 'group',
         children: [
             {
                 id: 'users',
-                title: 'User',
+                title: 'Nhân Viên',
                 type: 'basic',
                 icon: 'heroicons_outline:user',
                 link: '/settings/users'
             },
             {
                 id: 'roles',
-                title: 'Role',
+                title: 'Chức Vụ',
                 type: 'basic',
                 icon: 'heroicons_outline:star',
                 link: '/settings/roles'
             },
             {
                 id: 'departments',
-                title: 'Department',
+                title: 'Phòng Ban',
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
@@ -220,62 +188,50 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'incoming-documents',
-        title: 'Incoming Documents',
+        title: 'Văn Bản Đến',
         type: 'group',
         children: [
             {
                 id: 'incoming-documents.reception-and-registration',
-                title: 'Reception & Registration',
+                title: 'Tiếp Nhận & Đăng Ký',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-down',
                 children: [
                     {
                         id: 'incoming-documents.receive',
-                        title: 'Receive Documents',
+                        title: 'Tiếp Nhận Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/receive'
                     },
                     {
                         id: 'incoming-documents.classify',
-                        title: 'Classify Documents',
+                        title: 'Phân Loại Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/classify'
                     },
                     {
                         id: 'incoming-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đến',
                         type: 'basic',
                         link: '/incoming-documents/register'
-                    },
-                    {
-                        id: 'incoming-documents.distribution',
-                        title: 'Distribution Documents',
-                        type: 'basic',
-                        link: '/incoming-documents/distribution'
                     },
                 ]
             },
             {
                 id: 'incoming-documents.processing',
-                title: 'Processing',
+                title: 'Xử Lý',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-magnifying-glass',
                 children: [
                     {
                         id: 'incoming-documents.manage-and-process',
-                        title: 'Manage & Process',
+                        title: 'Quản Lý & Xử Lý',
                         type: 'basic',
                         link: '/incoming-documents/manage-and-process'
                     },
                     {
-                        id: 'incoming-documents.darft-and-feedback',
-                        title: 'Draft & Feedback',
-                        type: 'basic',
-                        link: '/incoming-documents/darft-and-feedback'
-                    },
-                    {
                         id: 'incoming-documents.tracking',
-                        title: 'Tracking Documents',
+                        title: 'Theo Dõi Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/tracking'
                     },
@@ -283,19 +239,19 @@ export const compactNavigation: FuseNavigationItem[] = [
             },
             {
                 id: 'incoming-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'incoming-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/incoming-documents/temporary-storage'
                     },
                     {
                         id: 'incoming-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/incoming-documents/long-term-storage'
                     }
@@ -305,70 +261,50 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'outgoing-documents',
-        title: 'Outgoing Documents',
+        title: 'Văn Bản Đi',
         type: 'group',
         children: [
             {
                 id: 'outgoing-documents.editing-and-publishing',
-                title: 'Editing and Publishing',
+                title: 'Tạo Và Gửi Văn Bản',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-up',
                 children: [
                     {
                         id: 'outgoing-documents.editings',
-                        title: 'Editting Documents',
+                        title: 'Văn Bản Nháp',
                         type: 'basic',
                         link: '/outgoing-documents/editings'
                     },
                     {
                         id: 'outgoing-documents.confirm-and-approve',
-                        title: 'Confirm & Approve',
+                        title: 'Phê Duyệt Văn Bản',
                         type: 'basic',
                         link: '/outgoing-documents/confirm-and-approve'
                     },
                     {
                         id: 'outgoing-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đi',
                         type: 'basic',
                         link: '/outgoing-documents/register'
                     },
                 ]
             },
             {
-                id: 'outgoing-documents.tracking',
-                title: 'Tracking',
-                type: 'collapsable',
-                icon: 'heroicons_outline:document-magnifying-glass',
-                children: [
-                    {
-                        id: 'outgoing-documents.tracking-process',
-                        title: 'Tracking Process',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-process'
-                    },
-                    {
-                        id: 'outgoing-documents.tracking-feedback',
-                        title: 'Tracking Feedback',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-feedback'
-                    },
-                ]
-            },
-            {
                 id: 'outgoing-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'outgoing-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/temporary-storage'
                     },
                     {
                         id: 'outgoing-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/long-term-storage'
                     }
@@ -378,26 +314,26 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'settings',
-        title: 'Setting',
+        title: 'Cài Đặt',
         type: 'group',
         children: [
             {
                 id: 'users',
-                title: 'User',
+                title: 'Nhân Viên',
                 type: 'basic',
                 icon: 'heroicons_outline:user',
                 link: '/settings/users'
             },
             {
                 id: 'roles',
-                title: 'Role',
+                title: 'Chức Vụ',
                 type: 'basic',
                 icon: 'heroicons_outline:star',
                 link: '/settings/roles'
             },
             {
                 id: 'departments',
-                title: 'Department',
+                title: 'Phòng Ban',
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
@@ -422,62 +358,50 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'incoming-documents',
-        title: 'Incoming Documents',
+        title: 'Văn Bản Đến',
         type: 'group',
         children: [
             {
                 id: 'incoming-documents.reception-and-registration',
-                title: 'Reception & Registration',
+                title: 'Tiếp Nhận & Đăng Ký',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-down',
                 children: [
                     {
                         id: 'incoming-documents.receive',
-                        title: 'Receive Documents',
+                        title: 'Tiếp Nhận Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/receive'
                     },
                     {
                         id: 'incoming-documents.classify',
-                        title: 'Classify Documents',
+                        title: 'Phân Loại Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/classify'
                     },
                     {
                         id: 'incoming-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đến',
                         type: 'basic',
                         link: '/incoming-documents/register'
-                    },
-                    {
-                        id: 'incoming-documents.distribution',
-                        title: 'Distribution Documents',
-                        type: 'basic',
-                        link: '/incoming-documents/distribution'
                     },
                 ]
             },
             {
                 id: 'incoming-documents.processing',
-                title: 'Processing',
+                title: 'Xử Lý',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-magnifying-glass',
                 children: [
                     {
                         id: 'incoming-documents.manage-and-process',
-                        title: 'Manage & Process',
+                        title: 'Quản Lý & Xử Lý',
                         type: 'basic',
                         link: '/incoming-documents/manage-and-process'
                     },
                     {
-                        id: 'incoming-documents.darft-and-feedback',
-                        title: 'Draft & Feedback',
-                        type: 'basic',
-                        link: '/incoming-documents/darft-and-feedback'
-                    },
-                    {
                         id: 'incoming-documents.tracking',
-                        title: 'Tracking Documents',
+                        title: 'Theo Dõi Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/tracking'
                     },
@@ -485,19 +409,19 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             },
             {
                 id: 'incoming-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'incoming-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/incoming-documents/temporary-storage'
                     },
                     {
                         id: 'incoming-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/incoming-documents/long-term-storage'
                     }
@@ -507,70 +431,50 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'outgoing-documents',
-        title: 'Outgoing Documents',
+        title: 'Văn Bản Đi',
         type: 'group',
         children: [
             {
                 id: 'outgoing-documents.editing-and-publishing',
-                title: 'Editing and Publishing',
+                title: 'Tạo Và Gửi Văn Bản',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-up',
                 children: [
                     {
                         id: 'outgoing-documents.editings',
-                        title: 'Editting Documents',
+                        title: 'Văn Bản Nháp',
                         type: 'basic',
                         link: '/outgoing-documents/editings'
                     },
                     {
                         id: 'outgoing-documents.confirm-and-approve',
-                        title: 'Confirm & Approve',
+                        title: 'Phê Duyệt Văn Bản',
                         type: 'basic',
                         link: '/outgoing-documents/confirm-and-approve'
                     },
                     {
                         id: 'outgoing-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đi',
                         type: 'basic',
                         link: '/outgoing-documents/register'
                     },
                 ]
             },
             {
-                id: 'outgoing-documents.tracking',
-                title: 'Tracking',
-                type: 'collapsable',
-                icon: 'heroicons_outline:document-magnifying-glass',
-                children: [
-                    {
-                        id: 'outgoing-documents.tracking-process',
-                        title: 'Tracking Process',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-process'
-                    },
-                    {
-                        id: 'outgoing-documents.tracking-feedback',
-                        title: 'Tracking Feedback',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-feedback'
-                    },
-                ]
-            },
-            {
                 id: 'outgoing-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'outgoing-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/temporary-storage'
                     },
                     {
                         id: 'outgoing-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/long-term-storage'
                     }
@@ -580,26 +484,26 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'settings',
-        title: 'Setting',
+        title: 'Cài Đặt',
         type: 'group',
         children: [
             {
                 id: 'users',
-                title: 'User',
+                title: 'Nhân Viên',
                 type: 'basic',
                 icon: 'heroicons_outline:user',
                 link: '/settings/users'
             },
             {
                 id: 'roles',
-                title: 'Role',
+                title: 'Chức Vụ',
                 type: 'basic',
                 icon: 'heroicons_outline:star',
                 link: '/settings/roles'
             },
             {
                 id: 'departments',
-                title: 'Department',
+                title: 'Phòng Ban',
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
@@ -624,62 +528,50 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'incoming-documents',
-        title: 'Incoming Documents',
+        title: 'Văn Bản Đến',
         type: 'group',
         children: [
             {
                 id: 'incoming-documents.reception-and-registration',
-                title: 'Reception & Registration',
+                title: 'Tiếp Nhận & Đăng Ký',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-down',
                 children: [
                     {
                         id: 'incoming-documents.receive',
-                        title: 'Receive Documents',
+                        title: 'Tiếp Nhận Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/receive'
                     },
                     {
                         id: 'incoming-documents.classify',
-                        title: 'Classify Documents',
+                        title: 'Phân Loại Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/classify'
                     },
                     {
                         id: 'incoming-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đến',
                         type: 'basic',
                         link: '/incoming-documents/register'
-                    },
-                    {
-                        id: 'incoming-documents.distribution',
-                        title: 'Distribution Documents',
-                        type: 'basic',
-                        link: '/incoming-documents/distribution'
                     },
                 ]
             },
             {
                 id: 'incoming-documents.processing',
-                title: 'Processing',
+                title: 'Xử Lý',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-magnifying-glass',
                 children: [
                     {
                         id: 'incoming-documents.manage-and-process',
-                        title: 'Manage & Process',
+                        title: 'Quản Lý & Xử Lý',
                         type: 'basic',
                         link: '/incoming-documents/manage-and-process'
                     },
                     {
-                        id: 'incoming-documents.darft-and-feedback',
-                        title: 'Draft & Feedback',
-                        type: 'basic',
-                        link: '/incoming-documents/darft-and-feedback'
-                    },
-                    {
                         id: 'incoming-documents.tracking',
-                        title: 'Tracking Documents',
+                        title: 'Theo Dõi Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/tracking'
                     },
@@ -687,19 +579,19 @@ export const horizontalNavigation: FuseNavigationItem[] = [
             },
             {
                 id: 'incoming-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'incoming-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/incoming-documents/temporary-storage'
                     },
                     {
                         id: 'incoming-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/incoming-documents/long-term-storage'
                     }
@@ -709,70 +601,50 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'outgoing-documents',
-        title: 'Outgoing Documents',
+        title: 'Văn Bản Đi',
         type: 'group',
         children: [
             {
                 id: 'outgoing-documents.editing-and-publishing',
-                title: 'Editing and Publishing',
+                title: 'Tạo Và Gửi Văn Bản',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-arrow-up',
                 children: [
                     {
                         id: 'outgoing-documents.editings',
-                        title: 'Editting Documents',
+                        title: 'Văn Bản Nháp',
                         type: 'basic',
                         link: '/outgoing-documents/editings'
                     },
                     {
                         id: 'outgoing-documents.confirm-and-approve',
-                        title: 'Confirm & Approve',
+                        title: 'Phê Duyệt Văn Bản',
                         type: 'basic',
                         link: '/outgoing-documents/confirm-and-approve'
                     },
                     {
                         id: 'outgoing-documents.register',
-                        title: 'Register Documents',
+                        title: 'Đăng Ký Văn Bản Đi',
                         type: 'basic',
                         link: '/outgoing-documents/register'
                     },
                 ]
             },
             {
-                id: 'outgoing-documents.tracking',
-                title: 'Tracking',
-                type: 'collapsable',
-                icon: 'heroicons_outline:document-magnifying-glass',
-                children: [
-                    {
-                        id: 'outgoing-documents.tracking-process',
-                        title: 'Tracking Process',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-process'
-                    },
-                    {
-                        id: 'outgoing-documents.tracking-feedback',
-                        title: 'Tracking Feedback',
-                        type: 'basic',
-                        link: '/outgoing-documents/tracking-feedback'
-                    },
-                ]
-            },
-            {
                 id: 'outgoing-documents.storage',
-                title: 'Storage',
+                title: 'Lưu Trữ',
                 type: 'collapsable',
                 icon: 'heroicons_outline:document-chart-bar',
                 children: [
                     {
                         id: 'outgoing-documents.temporary-storage',
-                        title: 'Temporary Storage',
+                        title: 'Lưu Trữ Ngắn Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/temporary-storage'
                     },
                     {
                         id: 'outgoing-documents.long-term-storage',
-                        title: 'Long-term Storage',
+                        title: 'Lưu Trữ Dài Hạn',
                         type: 'basic',
                         link: '/outgoing-documents/long-term-storage'
                     }
@@ -782,26 +654,26 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id: 'settings',
-        title: 'Setting',
+        title: 'Cài Đặt',
         type: 'group',
         children: [
             {
                 id: 'users',
-                title: 'User',
+                title: 'Nhân Viên',
                 type: 'basic',
                 icon: 'heroicons_outline:user',
                 link: '/settings/users'
             },
             {
                 id: 'roles',
-                title: 'Role',
+                title: 'Chức Vụ',
                 type: 'basic',
                 icon: 'heroicons_outline:star',
                 link: '/settings/roles'
             },
             {
                 id: 'departments',
-                title: 'Department',
+                title: 'Phòng Ban',
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'

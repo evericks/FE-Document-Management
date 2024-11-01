@@ -1,3 +1,7 @@
 export interface Document {
-    id: string
+    id: string,
+    documentTypeId: string,
+    documentProcesses: any[],
+    documentType: any,
+    processes: any[]
 }
