@@ -40,8 +40,10 @@ export class ReceiveDetailComponent implements OnInit {
     ngOnInit(): void {
         this.document$ = this._documentService.document$;
         this.document$.subscribe(document => {
-            this.processSteps = document.documentType.processes[0].processSteps;
-            this.documentProcesses = document.documentProcesses;
+            if (document.documentType) {
+                this.processSteps = document.documentType.processes[0].processSteps;
+                this.documentProcesses = document.documentProcesses;
+            }
         });
         this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
     }

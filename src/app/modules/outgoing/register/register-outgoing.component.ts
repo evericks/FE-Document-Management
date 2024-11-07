@@ -106,6 +106,8 @@ export class RegisterOutgoingComponent implements OnInit {
 
     onDepartmentChanged(event: any) {
         this._userService.getUsers({ departmentId: event.value.id }).subscribe(users => {
+            console.log(users);
+
             this.users = users;
         })
     }

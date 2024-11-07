@@ -107,10 +107,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-full">
                         <mat-label>Người Nhận</mat-label>
-                        <mat-select
-                            [formControlName]="'receiverId'"
-                            [disabled]="users.length === 0"
-                        >
+                        <mat-select [formControlName]="'receiverId'">
                             <ng-container *ngFor="let item of users">
                                 <mat-option [value]="item.id">{{
                                     item.name
