@@ -1,0 +1,11 @@
+<div class="flex h-full w-full items-center justify-center">
+    <ng-container *ngIf="!isFilled; else outline">
+        <mat-icon svgIcon="heroicons_outline:star"></mat-icon>
+    </ng-container>
+    <ng-template #outline>
+        <mat-icon
+            class="text-yellow-300"
+            svgIcon="heroicons_solid:star"
+        ></mat-icon>
+    </ng-template>
+</div>

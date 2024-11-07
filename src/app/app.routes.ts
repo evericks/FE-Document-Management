@@ -89,6 +89,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: 'receive', loadChildren: () => import('app/modules/incoming/receive/receive.routes') },
+            { path: 'register', loadChildren: () => import('app/modules/incoming/register/register-incoming.routes') },
         ]
     },
 
@@ -103,6 +104,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: 'editings', loadChildren: () => import('app/modules/outgoing/editing/editing.routes') },
+            { path: 'register', loadChildren: () => import('app/modules/outgoing/register/register-outgoing.routes') },
         ]
     },
 

@@ -26,9 +26,9 @@ export class UserService {
     }
 
 
-    getUsers():
+    getUsers(filter?: any):
         Observable<User[]> {
-        return this._httpClient.get<User[]>('/api/users').pipe(
+        return this._httpClient.get<User[]>('/api/users', { params: filter }).pipe(
             tap((response) => {
                 // Set value for current users
                 this._users.next(response);

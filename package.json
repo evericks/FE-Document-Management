@@ -13,6 +13,7 @@
         "test": "ng test"
     },
     "dependencies": {
+        "@ag-grid-community/locale": "^32.3.2",
         "@angular/animations": "18.0.1",
         "@angular/cdk": "18.0.1",
         "@angular/common": "18.0.1",

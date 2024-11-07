@@ -7,9 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
+import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
-import { ReceiveDocumentService } from '../receive.service';
 
 
 @Component({
@@ -26,20 +26,20 @@ import { ReceiveDocumentService } from '../receive.service';
 })
 export class ReceiveDetailComponent implements OnInit {
 
-    receiveDocument$: Observable<Document>;
+    document$: Observable<Document>;
     processSteps: any[] = [];
     documentProcesses: any[] = [];
     selectedIndex: number;
     isLinear = false;
 
     constructor(
-        private _receiveDocumentService: ReceiveDocumentService,
+        private _documentService: DocumentService,
         private _formBuilder: FormBuilder,
     ) { }
 
     ngOnInit(): void {
-        this.receiveDocument$ = this._receiveDocumentService.receiveDocument$;
-        this.receiveDocument$.subscribe(document => {
+        this.document$ = this._documentService.document$;
+        this.document$.subscribe(document => {
             this.processSteps = document.documentType.processes[0].processSteps;
             this.documentProcesses = document.documentProcesses;
         });

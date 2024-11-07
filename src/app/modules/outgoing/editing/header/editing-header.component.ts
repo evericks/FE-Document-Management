@@ -20,13 +20,13 @@ import { getItemNameById } from 'app/utils/common.utils';
 import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
 
 @Component({
-    selector: 'receive-header',
-    templateUrl: './receive-header.component.html',
+    selector: 'editing-header',
+    templateUrl: './editing-header.component.html',
     standalone: true,
     imports: [AgGridAngular, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule,
         MatIconModule, MatButtonModule, RouterModule]
 })
-export class ReceiveHeaderComponent implements OnInit {
+export class EditingHeaderComponent implements OnInit {
 
     rowData: Document[] = [];
 
@@ -212,6 +212,6 @@ export class ReceiveHeaderComponent implements OnInit {
     };
 
     onEditButtonClicked(data) {
-        this._router.navigate(['/incoming-documents/receive', data.id]);
+        // this._router.navigate(['/incoming-documents/receive', data.id]);
     }
 }

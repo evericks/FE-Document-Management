@@ -19,32 +19,32 @@
     </div>
 
     <div class="flex min-w-0 flex-auto flex-col">
-        <ng-container *ngIf="receiveDocument$ | async as receiveDocument">
+        <ng-container *ngIf="document$ | async as document">
             <div class="border-b px-6 py-8 md:px-8">
                 <div class="grid grid-cols-3 gap-8">
                     <div class="flex w-full flex-col gap-4">
                         <div class="w-full">
                             <div class="font-semibold">Cơ quan ban hành</div>
                             <div class="">
-                                {{ receiveDocument.issuingAgency }}
+                                {{ document.issuingAgency }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Tên văn bản</div>
                             <div class="">
-                                {{ receiveDocument.name }}
+                                {{ document.name }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Mã số văn bản</div>
                             <div class="">
-                                {{ receiveDocument.code }}
+                                {{ document.code }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Loại văn bản</div>
                             <div class="">
-                                {{ receiveDocument.documentType.name }}
+                                {{ document.documentType.name }}
                             </div>
                         </div>
                     </div>
@@ -52,36 +52,30 @@
                         <div class="w-full">
                             <div class="font-semibold">Ngày tiếp nhận</div>
                             <div class="">
-                                {{
-                                    receiveDocument.createdAt | date: 'fullDate'
-                                }}
+                                {{ document.createdAt | date: 'fullDate' }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Chữ ký</div>
                             <div class="">
-                                <!-- {{ receiveDocument.createdAt | date: 'fullDate' }} -->
+                                <!-- {{ document.createdAt | date: 'fullDate' }} -->
                                 None
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Văn bản nội bộ</div>
                             <div class="">
-                                <!-- {{ receiveDocument.createdAt | date: 'fullDate' }} -->
-                                {{
-                                    receiveDocument.isInternal ? 'Có' : 'Không'
-                                }}
+                                <!-- {{ document.createdAt | date: 'fullDate' }} -->
+                                {{ document.isInternal ? 'Có' : 'Không' }}
                             </div>
                         </div>
 
                         <div class="w-full">
                             <div class="font-semibold">Lưu trữ</div>
                             <div class="">
-                                <!-- {{ receiveDocument.createdAt | date: 'fullDate' }} -->
+                                <!-- {{ document.createdAt | date: 'fullDate' }} -->
                                 {{
-                                    receiveDocument.isArchived
-                                        ? 'Đã lưu trữ'
-                                        : 'Chưa'
+                                    document.isArchived ? 'Đã lưu trữ' : 'Chưa'
                                 }}
                             </div>
                         </div>
@@ -89,29 +83,29 @@
                     <div class="flex w-full flex-col gap-4">
                         <div class="w-full">
                             <div class="font-semibold">Hạn xử lý</div>
-                            <div [class]="receiveDocument.dueDate | dueDate">
-                                {{ receiveDocument.dueDate | date: 'fullDate' }}
+                            <div [class]="document.dueDate | dueDate">
+                                {{ document.dueDate | date: 'fullDate' }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Người gửi</div>
                             <div class="">
-                                {{ receiveDocument.sender.name }}
+                                {{ document.sender.name }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Người nhận</div>
                             <div class="">
-                                {{ receiveDocument.receiver.name }}
+                                {{ document.receiver.name }}
                             </div>
                         </div>
                         <div class="w-full">
                             <div class="font-semibold">Trạng thái văn bản</div>
                             <div
                                 class="mt-1 inline-block px-2"
-                                [class]="receiveDocument.status.name | status"
+                                [class]="document.status.name | status"
                             >
-                                {{ receiveDocument.status.name }}
+                                {{ document.status.name }}
                             </div>
                         </div>
                     </div>
@@ -122,7 +116,7 @@
                     <div>
                         <div class="font-semibold">Mô tả chi tiết</div>
                         <div class="italic">
-                            {{ receiveDocument.content || 'Không có mô tả' }}
+                            {{ document.content || 'Không có mô tả' }}
                         </div>
                     </div>
                     <div>
@@ -130,20 +124,20 @@
                         <div class="flex w-full flex-wrap gap-2">
                             <ng-container
                                 *ngIf="
-                                    receiveDocument.attachments &&
-                                    receiveDocument.attachments.length === 0
+                                    document.attachments &&
+                                    document.attachments.length === 0
                                 "
                             >
                                 <div class="italic">
                                     {{
-                                        receiveDocument.content ||
+                                        document.content ||
                                             'Không có tệp đính kèm'
                                     }}
                                 </div>
                             </ng-container>
 
                             <ng-container
-                                *ngFor="let file of receiveDocument.attachments"
+                                *ngFor="let file of document.attachments"
                             >
                                 <a
                                     class="bg-card flex h-32 w-32 cursor-pointer flex-col rounded-2xl p-4 shadow"

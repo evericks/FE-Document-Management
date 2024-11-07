@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'editing',
     templateUrl: './editing.component.html',
     standalone: true,
-    imports: []
+    imports: [RouterModule]
 })
 export class EditingComponent implements OnInit {
     constructor() { }

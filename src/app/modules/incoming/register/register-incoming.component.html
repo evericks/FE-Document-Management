@@ -1,0 +1,195 @@
+<div
+    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-0 flex-col border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between md:px-8"
+    >
+        <!-- Title -->
+        <div class="flex flex-col">
+            <div class="text-2xl font-extrabold tracking-tight">
+                Đăng Ký Văn Bản Đến
+            </div>
+            <!-- <breadcrumb></breadcrumb> -->
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
+            <button
+                mat-raised-button
+                color="primary"
+                class="rounded-md"
+                (click)="onSubmit()"
+            >
+                Đăng Ký
+            </button>
+        </div>
+    </div>
+
+    <div class="flex min-w-0 flex-auto flex-col px-6 py-4 md:px-8">
+        <form [formGroup]="registerDocumentForm">
+            <div class="flex w-full gap-8">
+                <mat-form-field class="w-full">
+                    <mat-label>Mã Văn Bản</mat-label>
+                    <input
+                        type="text"
+                        [formControlName]="'code'"
+                        matInput
+                        placeholder="Mã văn bản"
+                    />
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label> Tên Văn Bản </mat-label>
+                    <input
+                        type="text"
+                        [formControlName]="'name'"
+                        matInput
+                        placeholder="Tên văn bản"
+                    />
+                </mat-form-field>
+            </div>
+            <div class="flex w-full gap-8">
+                <mat-form-field class="w-full">
+                    <mat-label>Cơ Quan Ban Hành</mat-label>
+                    <input
+                        type="text"
+                        [formControlName]="'issuingAgency'"
+                        matInput
+                        placeholder="Cơ quan ban hành"
+                    />
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Loại Văn Bản</mat-label>
+                    <mat-select [formControlName]="'documentTypeId'">
+                        <ng-container *ngFor="let item of documentTypes">
+                            <mat-option [value]="item.id">{{
+                                item.name
+                            }}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Hạn Xử Lý</mat-label>
+                    <input
+                        [formControlName]="'dueDate'"
+                        [min]="today"
+                        matInput
+                        [matDatepicker]="dueDatePicker"
+                    />
+                    <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="dueDatePicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #dueDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="flex w-full gap-8">
+                <mat-form-field class="w-full">
+                    <mat-label>Nội Dung Văn Bản</mat-label>
+                    <textarea
+                        type="text"
+                        [formControlName]="'content'"
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="5"
+                        cdkAutosizeMaxRows="5"
+                        matInput
+                        placeholder="Nội dung văn bản"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+            <div class="flex w-full gap-8">
+                <div class="flex w-full flex-col gap-4">
+                    <p>
+                        <mat-slide-toggle
+                            [formControlName]="'isImportant'"
+                            color="primary"
+                            >Văn Bản Quan Trọng</mat-slide-toggle
+                        >
+                    </p>
+                    <p>
+                        <mat-slide-toggle
+                            color="primary"
+                            [formControlName]="'isInternal'"
+                            >Văn Bản Nội Bộ</mat-slide-toggle
+                        >
+                    </p>
+                    <p>
+                        <mat-slide-toggle
+                            color="primary"
+                            [formControlName]="'isArchived'"
+                            >Văn Bản Đã Được Lưu Trữ</mat-slide-toggle
+                        >
+                    </p>
+                </div>
+                <div class="flex w-full">
+                    <section class="container w-full">
+                        <div
+                            class="overflow-hidden rounded-lg bg-white shadow-md"
+                        >
+                            <div
+                                id="image-preview"
+                                class="mx-auto h-28 min-h-28 items-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 p-6 text-center"
+                            >
+                                <input
+                                    (change)="onFileSelected($event)"
+                                    id="upload"
+                                    type="file"
+                                    class="hidden"
+                                    accept=".pdf, .docx"
+                                    multiple
+                                />
+
+                                <ng-container
+                                    *ngIf="
+                                        selectedFiles.length > 0;
+                                        else noSelectedFiles
+                                    "
+                                >
+                                    <div
+                                        class="cursor-pointer text-red-700"
+                                        (click)="clearSelectedFiles()"
+                                    >
+                                        Xóa các file đã chọn
+                                    </div>
+                                    <ng-container
+                                        *ngFor="let item of selectedFiles"
+                                    >
+                                        <div>{{ item.name }}</div>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #noSelectedFiles>
+                                    <label for="upload" class="cursor-pointer">
+                                        <h5
+                                            class="text-xl font-bold tracking-tight text-gray-700"
+                                        >
+                                            Tệp Đính Kèm
+                                        </h5>
+                                        <p
+                                            class="text-sm font-normal text-gray-400 md:px-6"
+                                        >
+                                            Chọn file đính kèm có dung lượng nhỏ
+                                            hơn
+                                            <b class="text-gray-600">50mb</b>
+                                        </p>
+                                        <p
+                                            class="text-sm font-normal text-gray-400 md:px-6"
+                                        >
+                                            vả chỉ chấp nhận định dạng
+                                            <b class="text-gray-600"
+                                                >PDF hoặc DOCX</b
+                                            >.
+                                        </p>
+                                        <span
+                                            id="filename"
+                                            class="z-50 bg-gray-200 text-gray-500"
+                                        ></span>
+                                    </label>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
