@@ -91,6 +91,7 @@ export const appRoutes: Route[] = [
             { path: 'receive', loadChildren: () => import('app/modules/incoming/receive/receive.routes') },
             { path: 'classify', loadChildren: () => import('app/modules/incoming/classify/classify.routes') },
             { path: 'register', loadChildren: () => import('app/modules/incoming/register/register-incoming.routes') },
+            { path: 'manage-and-process', loadChildren: () => import('app/modules/incoming/process/process.routes') },
         ]
     },
 

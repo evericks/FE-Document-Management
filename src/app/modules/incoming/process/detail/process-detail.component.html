@@ -1,0 +1,318 @@
+<div
+    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-0 flex-col border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between md:px-8"
+    >
+        <!-- Title -->
+        <div class="flex flex-col">
+            <div class="text-2xl font-extrabold tracking-tight">
+                Thông tin văn bản
+            </div>
+            <!-- <breadcrumb></breadcrumb> -->
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
+            <div class="flex">
+                <button
+                    mat-raised-button
+                    color="accent"
+                    class="rounded-md"
+                    (click)="goBack()"
+                >
+                    Quay Lại
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex min-w-0 flex-auto flex-col">
+        <ng-container *ngIf="document$ | async as document">
+            <div class="border-b px-6 py-8 md:px-8">
+                <div class="grid grid-cols-3 gap-8">
+                    <div class="flex w-full flex-col gap-4">
+                        <div class="w-full">
+                            <div class="font-semibold">Cơ quan ban hành</div>
+                            <div class="">
+                                {{ document.issuingAgency }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Tên văn bản</div>
+                            <div class="">
+                                {{ document.name }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Mã số văn bản</div>
+                            <div class="">
+                                {{ document.code }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Loại văn bản</div>
+                            <ng-container
+                                *ngIf="document.documentType; else noType"
+                            >
+                                <div class="">
+                                    {{ document.documentType.name }}
+                                </div>
+                            </ng-container>
+                            <ng-template #noType>
+                                <div>Chưa phân loại</div>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="flex w-full flex-col gap-4">
+                        <div class="w-full">
+                            <div class="font-semibold">Ngày gửi</div>
+                            <div class="">
+                                {{ document.createdAt | date: 'fullDate' }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Chữ ký</div>
+                            <div class="">
+                                <!-- {{ document.createdAt | date: 'fullDate' }} -->
+                                None
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Văn bản nội bộ</div>
+                            <div class="">
+                                <!-- {{ document.createdAt | date: 'fullDate' }} -->
+                                {{ document.isInternal ? 'Có' : 'Không' }}
+                            </div>
+                        </div>
+
+                        <div class="w-full">
+                            <div class="font-semibold">Lưu trữ</div>
+                            <div class="">
+                                <!-- {{ document.createdAt | date: 'fullDate' }} -->
+                                {{
+                                    document.isArchived ? 'Đã lưu trữ' : 'Chưa'
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex w-full flex-col gap-4">
+                        <div class="w-full">
+                            <div class="font-semibold">Hạn xử lý</div>
+                            <div [class]="document.dueDate | dueDate">
+                                {{ document.dueDate | date: 'fullDate' }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Người gửi</div>
+                            <div class="">
+                                {{ document.sender.name }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Người nhận</div>
+                            <div class="">
+                                {{ document.receiver.name }}
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="font-semibold">Trạng thái văn bản</div>
+                            <div
+                                class="mt-1 inline-block px-2"
+                                [class]="document.status.name | status"
+                            >
+                                {{ document.status.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-b px-6 py-8 md:px-8">
+                <div class="grid grid-cols-3 gap-8">
+                    <div>
+                        <div class="font-semibold">Mô tả chi tiết</div>
+                        <div class="italic">
+                            {{ document.content || 'Không có mô tả' }}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Tệp đính kèm</div>
+                        <div class="flex w-full flex-wrap gap-2">
+                            <ng-container
+                                *ngIf="
+                                    document.attachments &&
+                                    document.attachments.length === 0
+                                "
+                            >
+                                <div class="italic">
+                                    {{
+                                        document.content ||
+                                            'Không có tệp đính kèm'
+                                    }}
+                                </div>
+                            </ng-container>
+
+                            <ng-container
+                                *ngFor="let file of document.attachments"
+                            >
+                                <a
+                                    class="bg-card flex h-32 w-32 cursor-pointer flex-col rounded-2xl p-4 shadow"
+                                    [href]="file.url"
+                                >
+                                    <div class="aspect-[9/6]">
+                                        <div
+                                            class="flex h-full items-center justify-center"
+                                        >
+                                            <!-- Icons -->
+                                            <div class="relative">
+                                                <mat-icon
+                                                    class="text-hint opacity-50 icon-size-14"
+                                                    [svgIcon]="
+                                                        'heroicons_solid:document'
+                                                    "
+                                                ></mat-icon>
+                                                <div
+                                                    class="absolute bottom-0 left-0 rounded px-1.5 text-sm font-semibold leading-5 text-white"
+                                                    [class.bg-red-600]="
+                                                        file.mediaType ===
+                                                        '.pdf'
+                                                    "
+                                                    [class.bg-blue-600]="
+                                                        file.mediaType ===
+                                                        '.docx'
+                                                    "
+                                                    [class.bg-gray-600]="
+                                                        file.mediaType !==
+                                                            '.docx' &&
+                                                        file.mediaType !==
+                                                            '.pdf'
+                                                    "
+                                                >
+                                                    {{
+                                                        file.mediaType.toUpperCase()
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="flex flex-auto flex-col justify-center text-center text-sm font-medium"
+                                    >
+                                        <div
+                                            class="truncate"
+                                            [matTooltip]="file.name"
+                                        >
+                                            {{ file.name }}
+                                        </div>
+                                        @if (file.contents) {
+                                            <div
+                                                class="text-secondary truncate"
+                                            >
+                                                {{ file.contents }}
+                                            </div>
+                                        }
+                                    </div>
+                                </a>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex gap-2">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                class="rounded-md"
+                            >
+                                Xử Lý
+                            </button>
+                            <ng-container *ngIf="!document.isArchived">
+                                <button
+                                    mat-raised-button
+                                    color="primary"
+                                    class="rounded-md"
+                                >
+                                    Lưu Trữ
+                                </button>
+                            </ng-container>
+                            <button
+                                mat-raised-button
+                                color="warn"
+                                class="rounded-md"
+                                (click)="returnDocument(document.id)"
+                            >
+                                Chuyển Lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="document.documentTypeId">
+                <div class="border-b px-6 py-8 md:px-8">
+                    <div class="mb-4 font-semibold">Quy trình xử lý</div>
+                    <mat-stepper #stepper [selectedIndex]="selectedIndex + 1">
+                        <ng-container *ngFor="let step of processSteps">
+                            <mat-step
+                                [editable]="true"
+                                [completed]="isStepCompleted(step.id)"
+                                [label]="step.name"
+                            >
+                                <ng-container *ngIf="isStepCompleted(step.id)">
+                                    <ng-container
+                                        *ngIf="
+                                            getStepFromProcessSteps(
+                                                step.id
+                                            ) as finishedStep
+                                        "
+                                    >
+                                        <div class="mt-4">
+                                            <div>
+                                                <span> Hoàn thành lúc </span>
+                                                <span class="font-semibold">
+                                                    {{
+                                                        finishedStep.processedAt
+                                                            | date: 'hh:mm'
+                                                    }}
+                                                </span>
+                                                <span> ngày </span>
+                                                <span class="font-semibold">
+                                                    {{
+                                                        finishedStep.processedAt
+                                                            | date: 'dd-MM-YYYY'
+                                                    }}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span> Hoàn thành bởi </span>
+                                                <span
+                                                    class="font-semibold text-blue-700"
+                                                >
+                                                    {{
+                                                        finishedStep.processBy
+                                                            .name
+                                                    }}
+                                                </span>
+                                            </div>
+                                            <div *ngIf="finishedStep.note">
+                                                <span> Ghi chú </span>
+                                                <span class="italic">
+                                                    {{ finishedStep.note }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-container *ngIf="!isStepCompleted(step.id)">
+                                    <div class="mt-4">
+                                        <span class="italic"
+                                            >Chưa hoàn thành</span
+                                        >
+                                    </div>
+                                </ng-container>
+                            </mat-step>
+                        </ng-container>
+                    </mat-stepper>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
