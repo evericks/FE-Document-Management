@@ -36,9 +36,29 @@ export class DocumentService {
         );
     }
 
+    getUserReceiveDocuments():
+        Observable<Document[]> {
+        return this._httpClient.get<Document[]>('/api/documents/users/receive').pipe(
+            tap((response) => {
+                // Set value for current documents
+                this._documents.next(response);
+            }),
+        );
+    }
+
     getUserDraftDocuments():
         Observable<Document[]> {
         return this._httpClient.get<Document[]>('/api/documents/users/drafting').pipe(
+            tap((response) => {
+                // Set value for current documents
+                this._documents.next(response);
+            }),
+        );
+    }
+
+    getUserUnclassifiedDocuments():
+        Observable<Document[]> {
+        return this._httpClient.get<Document[]>('/api/documents/users/unclassified').pipe(
             tap((response) => {
                 // Set value for current documents
                 this._documents.next(response);
@@ -156,7 +176,7 @@ export class DocumentService {
         return this.documents$.pipe(
             take(1),
             switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id, data).pipe(
-                map((updatedProvince) => {
+                map((updatedDocument) => {
 
                     if (documents) {
 
@@ -165,10 +185,76 @@ export class DocumentService {
                     }
 
                     // Update document
-                    this._document.next(updatedProvince);
+                    this._document.next(updatedDocument);
 
                     // Return updated document
-                    return updatedProvince;
+                    return updatedDocument;
+                })
+            ))
+        )
+    }
+
+    receiveDocument(id: string) {
+        return this.documents$.pipe(
+            take(1),
+            switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/receive', null).pipe(
+                map((updatedDocument) => {
+
+                    if (documents) {
+
+                        // Update documents
+                        this._documents.next(documents);
+                    }
+
+                    // Update document
+                    this._document.next(updatedDocument);
+
+                    // Return updated document
+                    return updatedDocument;
+                })
+            ))
+        )
+    }
+
+    returnDocument(id: string, data) {
+        return this.documents$.pipe(
+            take(1),
+            switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/return', data).pipe(
+                map((updatedDocument) => {
+
+                    if (documents) {
+
+                        // Update documents
+                        this._documents.next(documents);
+                    }
+
+                    // Update document
+                    this._document.next(updatedDocument);
+
+                    // Return updated document
+                    return updatedDocument;
+                })
+            ))
+        )
+    }
+
+    classifyDocument(id: string, documentTypeId) {
+        return this.documents$.pipe(
+            take(1),
+            switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/classify/' + documentTypeId, null).pipe(
+                map((updatedDocument) => {
+
+                    if (documents) {
+
+                        // Update documents
+                        this._documents.next(documents);
+                    }
+
+                    // Update document
+                    this._document.next(updatedDocument);
+
+                    // Return updated document
+                    return updatedDocument;
                 })
             ))
         )

@@ -1,0 +1,72 @@
+<div class="-m-6 flex flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="flex h-16 flex-0 items-center justify-between bg-primary pl-6 pr-3 shadow sm:pl-8 sm:pr-5"
+    >
+        <span class="truncate font-medium text-white"> Phân Loại Văn Bản </span>
+        <div>
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                [tabIndex]="-1"
+            >
+                <mat-icon
+                    class="text-white"
+                    [svgIcon]="'heroicons_outline:x-mark'"
+                ></mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="item flex h-full flex-col justify-between gap-4 p-4">
+        <div class="flex flex-col gap-4 p-4">
+            <mat-form-field
+                class="fuse-mat-dense fuse-mat-rounded min-w-64"
+                subscriptSizing="dynamic"
+            >
+                <input
+                    type="text"
+                    matInput
+                    placeholder="Tìm kiếm"
+                    [formControl]="filter"
+                />
+            </mat-form-field>
+            <ng-container *ngIf="documentTypes$ | async as documentTypes">
+                <ng-container
+                    *ngIf="documentTypes.length > 0; else noDocumentTypes"
+                >
+                    <div class="italic">Chọn loại văn bản</div>
+                    <div class="flex w-full flex-wrap gap-4">
+                        <ng-container *ngFor="let item of documentTypes">
+                            <div
+                                [class]="
+                                    selectedDocumentType?.id === item.id
+                                        ? 'border-green-800 bg-green-700'
+                                        : 'border-gray-400 bg-gray-500'
+                                "
+                                class="cursor-pointer rounded-full border px-4 py-2 font-semibold text-white"
+                                (click)="documentTypeSelected(item)"
+                            >
+                                {{ item.name }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+                <ng-template #noDocumentTypes>
+                    <p class="italic">Không tìm thấy bất kỳ loại văn bản nào</p>
+                </ng-template>
+            </ng-container>
+        </div>
+        <div class="flex items-end justify-end">
+            <button
+                mat-raised-button
+                color="primary"
+                class="rounded-md"
+                (click)="submit()"
+                [disabled]="!selectedDocumentType"
+            >
+                Xác Nhận Phân Loại
+            </button>
+        </div>
+    </div>
+</div>

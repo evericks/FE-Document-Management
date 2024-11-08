@@ -6,9 +6,9 @@ import { DocumentTypeService } from 'app/modules/setting/document-type/document-
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { UserService } from 'app/modules/setting/user/user.service';
 import { forkJoin } from 'rxjs';
-import { ReceiveDetailComponent } from './detail/receive-detail.component';
-import { ReceiveHeaderComponent } from './header/receive-header.component';
-import { ReceiveComponent } from './receive.component';
+import { ClassifyDetailComponent } from './detail/classify-detail.component';
+import { ClassifyHeaderComponent } from './header/classify-header.component';
+import { ClassifyComponent } from './classify.component';
 
 export default [
     {
@@ -18,15 +18,15 @@ export default [
     },
     {
         path: '',
-        component: ReceiveComponent,
+        component: ClassifyComponent,
         children: [
             {
                 path: 'header',
-                component: ReceiveHeaderComponent,
+                component: ClassifyHeaderComponent,
                 resolve: {
                     combinedData: () =>
                         forkJoin({
-                            documents: inject(DocumentService).getUserReceiveDocuments(),
+                            documents: inject(DocumentService).getUserUnclassifiedDocuments(),
                             users: inject(UserService).getUsers(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),
@@ -35,7 +35,7 @@ export default [
             },
             {
                 path: ':id',
-                component: ReceiveDetailComponent,
+                component: ClassifyDetailComponent,
                 resolve: {
                     combinedData: (activatedRoute: ActivatedRouteSnapshot) => {
                         const id = activatedRoute.params['id'];

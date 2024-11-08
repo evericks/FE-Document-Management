@@ -6,7 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { messages } from 'app/mock-api/apps/chat/data';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
@@ -35,6 +38,8 @@ export class ReceiveDetailComponent implements OnInit {
     constructor(
         private _documentService: DocumentService,
         private _formBuilder: FormBuilder,
+        private _fuseConfirmationService: FuseConfirmationService,
+        private _router: Router
     ) { }
 
     ngOnInit(): void {
@@ -74,5 +79,95 @@ export class ReceiveDetailComponent implements OnInit {
 
     getStepFromProcessSteps(stepId: string) {
         return this.documentProcesses.find(step => step.processStep.id === stepId) || null;
+    }
+
+    receiveDocument(id: string) {
+        this._fuseConfirmationService.open({
+            title: 'Xác nhận',
+            message: 'Bạn chắc chắn muốn tiếp nhận văn bản này',
+            icon: {
+                color: 'info',
+            },
+            actions: {
+                cancel: {
+                    label: 'Hủy'
+                },
+                confirm: {
+                    color: 'primary',
+                    label: 'Xác Nhận'
+                }
+            }
+        }).afterClosed().subscribe(result => {
+            if (result === 'confirmed') {
+                this._documentService.receiveDocument(id).subscribe(() => {
+                    this._fuseConfirmationService.open({
+                        title: 'Thành công',
+                        message: 'Văn bản đã được tiếp nhận',
+                        icon: {
+                            color: 'success',
+                            name: 'heroicons_outline:shield-check'
+                        },
+                        actions: {
+                            cancel: {
+                                show: false
+                            },
+                            confirm: {
+                                color: 'primary',
+                                label: 'Tiếp Tục'
+                            }
+                        }
+                    }).afterClosed().subscribe(() => {
+                        this.goBack()
+                    });
+                });
+            }
+        });
+    }
+
+    returnDocument(id: string) {
+        this._fuseConfirmationService.open({
+            title: 'Xác nhận',
+            message: 'Bạn chắc chắn muốn trả lại văn bản văn bản này',
+            icon: {
+                color: 'info',
+            },
+            actions: {
+                cancel: {
+                    label: 'Hủy'
+                },
+                confirm: {
+                    color: 'primary',
+                    label: 'Xác Nhận'
+                }
+            }
+        }).afterClosed().subscribe(result => {
+            if (result === 'confirmed') {
+                this._documentService.returnDocument(id, { message: 'Message trả lại' }).subscribe(() => {
+                    this._fuseConfirmationService.open({
+                        title: 'Thành công',
+                        message: 'Văn bản đã được trả lại',
+                        icon: {
+                            color: 'success',
+                            name: 'heroicons_outline:shield-check'
+                        },
+                        actions: {
+                            cancel: {
+                                show: false
+                            },
+                            confirm: {
+                                color: 'primary',
+                                label: 'Tiếp Tục'
+                            }
+                        }
+                    }).afterClosed().subscribe(() => {
+                        this.goBack()
+                    });
+                });
+            }
+        });
+    }
+
+    goBack() {
+        this._router.navigate(['/incoming-documents/receive']);
     }
 }
