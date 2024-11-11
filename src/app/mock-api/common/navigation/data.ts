@@ -167,6 +167,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
+            },
+            {
+                id: 'document-types',
+                title: 'Loại Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:document-text',
+                link: '/settings/document-types'
+            },
+            {
+                id: 'processes',
+                title: 'Quy Trình Xử Lý',
+                type: 'basic',
+                icon: 'heroicons_outline:share',
+                link: '/settings/processes'
             }
         ]
     },
@@ -337,6 +351,20 @@ export const compactNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
+            },
+            {
+                id: 'document-types',
+                title: 'Loại Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:document-text',
+                link: '/settings/document-types'
+            },
+            {
+                id: 'processes',
+                title: 'Quy Trình Xử Lý',
+                type: 'basic',
+                icon: 'heroicons_outline:share',
+                link: '/settings/processes'
             }
         ]
     },
@@ -507,6 +535,20 @@ export const futuristicNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
+            },
+            {
+                id: 'document-types',
+                title: 'Loại Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:document-text',
+                link: '/settings/document-types'
+            },
+            {
+                id: 'processes',
+                title: 'Quy Trình Xử Lý',
+                type: 'basic',
+                icon: 'heroicons_outline:share',
+                link: '/settings/processes'
             }
         ]
     },
@@ -677,6 +719,20 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/settings/departments'
+            },
+            {
+                id: 'document-types',
+                title: 'Loại Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:document-text',
+                link: '/settings/document-types'
+            },
+            {
+                id: 'processes',
+                title: 'Quy Trình Xử Lý',
+                type: 'basic',
+                icon: 'heroicons_outline:share',
+                link: '/settings/processes'
             }
         ]
     },

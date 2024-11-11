@@ -9,25 +9,20 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { messages } from 'app/mock-api/apps/chat/data';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
 
 
 @Component({
-    selector: 'receive-detail',
-    templateUrl: './receive-detail.component.html',
+    selector: 'document-type-detail',
+    templateUrl: './document-type-detail.component.html',
     standalone: true,
-    //     styles: `
-    //     :host ::ng-deep .mat-horizontal-content-container {
-    //     padding:0 !important;
-    // }`,
     imports: [CommonModule, CustomPipesModule, MatButtonModule,
         MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
         MatInputModule, MatIconModule]
 })
-export class ReceiveDetailComponent implements OnInit {
+export class DocumentTypeDetailComponent implements OnInit {
 
     document$: Observable<Document>;
     processSteps: any[] = [];

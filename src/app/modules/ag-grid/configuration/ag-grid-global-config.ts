@@ -38,3 +38,13 @@ export const globalGridOptions: GridOptions = {
     },
     getRowId: (params) => params.data.id
 };
+
+export const masterDetailDefaultColDef = {
+    flex: 1,
+    minWidth: 200,
+    enableValue: true,
+    enableCellChangeFlash: true,
+    filter: true,
+    suppressAutoSize: true,
+    tooltipComponent: 'customTooltip',
+};

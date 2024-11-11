@@ -26,7 +26,7 @@ export class ProcessService {
     }
 
 
-    getProcesss():
+    getProcesses():
         Observable<Process[]> {
         return this._httpClient.get<Process[]>('/api/processes').pipe(
             tap((response) => {

@@ -46,7 +46,7 @@ export class ClassifyDetailComponent implements OnInit {
         this.document$ = this._documentService.document$;
         this.document$.subscribe(document => {
             if (document.documentType) {
-                this.processSteps = document.documentType.processes[0].processSteps;
+                this.processSteps = document.documentType.process.processSteps
                 this.documentProcesses = document.documentProcesses;
             }
         });

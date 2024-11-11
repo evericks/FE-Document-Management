@@ -66,6 +66,16 @@ export class DocumentService {
         );
     }
 
+    getUserPendingProcessingDocuments():
+        Observable<Document[]> {
+        return this._httpClient.get<Document[]>('/api/documents/users/pending-processing').pipe(
+            tap((response) => {
+                // Set value for current documents
+                this._documents.next(response);
+            }),
+        );
+    }
+
     /**
      * Get document by id
      */

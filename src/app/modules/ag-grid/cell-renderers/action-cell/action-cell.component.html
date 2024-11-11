@@ -1,5 +1,17 @@
 <ng-container *ngIf="display">
     <div class="flex h-full w-full items-center justify-center gap-3">
+        <ng-container *ngIf="showExpandIcon && !isNew">
+            <button type="button" class="flex" (click)="toggleExpand()">
+                <mat-icon
+                    class="text-gray-900 icon-size-5"
+                    [svgIcon]="
+                        expanded
+                            ? 'heroicons_outline:chevron-down'
+                            : 'heroicons_outline:chevron-right'
+                    "
+                ></mat-icon>
+            </button>
+        </ng-container>
         <ng-container *ngIf="showSettingIcon">
             <button type="button" class="flex" (click)="onSetting()">
                 <mat-icon

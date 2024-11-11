@@ -218,13 +218,6 @@
                     </div>
                     <div>
                         <div class="flex gap-2">
-                            <button
-                                mat-raised-button
-                                color="primary"
-                                class="rounded-md"
-                            >
-                                Xử Lý
-                            </button>
                             <ng-container *ngIf="!document.isArchived">
                                 <button
                                     mat-raised-button
@@ -234,6 +227,13 @@
                                     Lưu Trữ
                                 </button>
                             </ng-container>
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                class="rounded-md"
+                            >
+                                Chuyển Đi
+                            </button>
                             <button
                                 mat-raised-button
                                 color="warn"
@@ -246,7 +246,7 @@
                     </div>
                 </div>
             </div>
-            <ng-container *ngIf="document.documentTypeId">
+            <ng-container *ngIf="document.documentType">
                 <div class="border-b px-6 py-8 md:px-8">
                     <div class="mb-4 font-semibold">Quy trình xử lý</div>
                     <mat-stepper #stepper [selectedIndex]="selectedIndex + 1">

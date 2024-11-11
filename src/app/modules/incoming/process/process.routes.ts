@@ -26,7 +26,7 @@ export default [
                 resolve: {
                     combinedData: () =>
                         forkJoin({
-                            documents: inject(DocumentService).getDocuments(),
+                            documents: inject(DocumentService).getUserPendingProcessingDocuments(),
                             users: inject(UserService).getUsers(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),

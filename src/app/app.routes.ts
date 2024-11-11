@@ -123,6 +123,8 @@ export const appRoutes: Route[] = [
             { path: 'users', loadChildren: () => import('app/modules/setting/user/user.routes') },
             { path: 'departments', loadChildren: () => import('app/modules/setting/department/department.routes') },
             { path: 'roles', loadChildren: () => import('app/modules/setting/role/role.routes') },
+            { path: 'document-types', loadChildren: () => import('app/modules/setting/document-type/document-type.routes') },
+            { path: 'processes', loadChildren: () => import('app/modules/setting/process/process-setting.routes') },
         ]
     }
 ];

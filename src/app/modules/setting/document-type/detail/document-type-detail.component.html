@@ -8,13 +8,22 @@
         <!-- Title -->
         <div class="flex flex-col">
             <div class="text-2xl font-extrabold tracking-tight">
-                Phân Loại Văn Bản
+                Thông Tin Loại Văn Bản
             </div>
             <!-- <breadcrumb></breadcrumb> -->
         </div>
         <!-- Actions -->
         <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
-            <div class="flex"></div>
+            <div class="flex">
+                <button
+                    mat-raised-button
+                    color="accent"
+                    class="rounded-md"
+                    (click)="goBack()"
+                >
+                    Quay Lại
+                </button>
+            </div>
         </div>
     </div>
 
@@ -57,7 +66,7 @@
                     </div>
                     <div class="flex w-full flex-col gap-4">
                         <div class="w-full">
-                            <div class="font-semibold">Ngày tiếp nhận</div>
+                            <div class="font-semibold">Ngày gửi</div>
                             <div class="">
                                 {{ document.createdAt | date: 'fullDate' }}
                             </div>
@@ -213,21 +222,24 @@
                                 mat-raised-button
                                 color="primary"
                                 class="rounded-md"
-                                (click)="classifyButtonClicked(document.id)"
+                                (click)="receiveDocument(document.id)"
                             >
-                                Phân Loại
+                                Tiếp Nhận
                             </button>
-                            <button
-                                mat-raised-button
-                                color="primary"
-                                class="rounded-md"
-                            >
-                                Lưu Trữ
-                            </button>
+                            <ng-container *ngIf="!document.isArchived">
+                                <button
+                                    mat-raised-button
+                                    color="primary"
+                                    class="rounded-md"
+                                >
+                                    Lưu Trữ
+                                </button>
+                            </ng-container>
                             <button
                                 mat-raised-button
                                 color="warn"
                                 class="rounded-md"
+                                (click)="returnDocument(document.id)"
                             >
                                 Chuyển Lại
                             </button>

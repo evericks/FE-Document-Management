@@ -13,6 +13,7 @@ import { HotkeyService } from 'app/modules/hotkey/hotkey.service';
 export class ActionCellComponent implements ICellRendererAngularComp {
     private params: any;
     display: boolean = true;
+    expanded: boolean = false;
     showUpdateIcon: boolean = true;
     showRemoveIcon: boolean = true;
     showExpandIcon: boolean = false;
@@ -74,6 +75,15 @@ export class ActionCellComponent implements ICellRendererAngularComp {
         if (this.params.onUpdate) {
             this.params.onUpdate(this.params.data);
         }
+    }
+
+    toggleExpand() {
+        if (this.expanded) {
+            this.params.node.setExpanded(false); // Collapse the row
+        } else {
+            this.params.node.setExpanded(true); // Expand the row
+        }
+        this.expanded = !this.expanded;
     }
 
     refresh(params: any): boolean {
