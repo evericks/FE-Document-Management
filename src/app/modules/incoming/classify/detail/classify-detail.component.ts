@@ -88,26 +88,24 @@ export class ClassifyDetailComponent implements OnInit {
                 height: '500px'
             }).afterClosed().subscribe(data => {
                 this._documentService.classifyDocument(id, data.id).subscribe(() => {
-                    this._documentService.returnDocument(id, { message: 'Message trả lại' }).subscribe(() => {
-                        this._fuseConfirmationService.open({
-                            title: 'Thành công',
-                            message: 'Văn bản đã được phân loại',
-                            icon: {
-                                color: 'success',
-                                name: 'heroicons_outline:shield-check'
+                    this._fuseConfirmationService.open({
+                        title: 'Thành công',
+                        message: 'Văn bản đã được phân loại',
+                        icon: {
+                            color: 'success',
+                            name: 'heroicons_outline:shield-check'
+                        },
+                        actions: {
+                            cancel: {
+                                show: false
                             },
-                            actions: {
-                                cancel: {
-                                    show: false
-                                },
-                                confirm: {
-                                    color: 'primary',
-                                    label: 'Tiếp Tục'
-                                }
+                            confirm: {
+                                color: 'primary',
+                                label: 'Tiếp Tục'
                             }
-                        }).afterClosed().subscribe(() => {
-                            this.goBack()
-                        });
+                        }
+                    }).afterClosed().subscribe(() => {
+                        this.goBack()
                     });
                 });
             });

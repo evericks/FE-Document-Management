@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DepartmentService } from 'app/modules/setting/department/department.service';
 import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 import { DocumentService } from 'app/modules/setting/document/document.service';
@@ -38,7 +39,8 @@ export class RegisterIncomingComponent implements OnInit {
         private _documentService: DocumentService,
         private _departmentService: DepartmentService,
         private _documentTypeService: DocumentTypeService,
-        private _userService: UserService
+        private _userService: UserService,
+        private _fuseConfirmationService: FuseConfirmationService
     ) { }
 
     ngOnInit(): void {
@@ -101,7 +103,17 @@ export class RegisterIncomingComponent implements OnInit {
             formData.append('attachments', file); // Key 'files' sẽ là tên để server nhận diện
         });
 
-        this._documentService.createIncomingDocument(formData).subscribe();
+        this._documentService.createIncomingDocument(formData).subscribe({
+            next: () => {
+
+            },
+            error: () => {
+                this._fuseConfirmationService.open({
+                    title: 'Thất bại',
+                    message: 'Mã văn bản đã tồn tại',
+                })
+            }
+        });
     }
 
     onDepartmentChanged(event: any) {
