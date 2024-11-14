@@ -43,11 +43,11 @@ export class DocumentTypeDetailComponent implements OnInit {
             if (document.documentType) {
                 if (this.processSteps = document.documentType.process) {
                     this.processSteps = document.documentType.process.processSteps
+                    this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
                 }
                 this.documentProcesses = document.documentProcesses;
             }
         });
-        this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
     }
 
     firstFormGroup = this._formBuilder.group({

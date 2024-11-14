@@ -247,7 +247,7 @@
                     </div>
                 </div>
             </div>
-            <ng-container *ngIf="document.documentType.process">
+            <ng-container *ngIf="document.documentType?.process">
                 <div class="border-b px-6 py-8 md:px-8">
                     <div class="mb-4 font-semibold">Quy trình xử lý</div>
                     <mat-stepper #stepper [selectedIndex]="selectedIndex + 1">

@@ -36,7 +36,7 @@ export class ReturnDetailComponent implements OnInit {
         private _documentService: DocumentService,
         private _formBuilder: FormBuilder,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _router: Router
+        private _router: Router,
     ) { }
 
     ngOnInit(): void {

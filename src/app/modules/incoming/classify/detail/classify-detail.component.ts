@@ -10,7 +10,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { DocumentTypeCardComponent } from 'app/modules/setting/document-type/document-type-card/document-type-card.component';
+import { DocumentTypeCardComponent } from 'app/modules/common/document-type-card/document-type-card.component';
 import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
@@ -48,11 +48,11 @@ export class ClassifyDetailComponent implements OnInit {
             if (document.documentType) {
                 if (this.processSteps = document.documentType.process) {
                     this.processSteps = document.documentType.process.processSteps
+                    this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
                 }
                 this.documentProcesses = document.documentProcesses;
             }
         });
-        this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -89,27 +89,30 @@ export class ClassifyDetailComponent implements OnInit {
                 width: '720px',
                 height: '500px'
             }).afterClosed().subscribe(data => {
-                this._documentService.classifyDocument(id, data.id).subscribe(() => {
-                    this._fuseConfirmationService.open({
-                        title: 'Thành công',
-                        message: 'Văn bản đã được phân loại',
-                        icon: {
-                            color: 'success',
-                            name: 'heroicons_outline:shield-check'
-                        },
-                        actions: {
-                            cancel: {
-                                show: false
+                if (data) {
+                    this._documentService.classifyDocument(id, data.id).subscribe(() => {
+                        this._fuseConfirmationService.open({
+                            title: 'Thành công',
+                            message: 'Văn bản đã được phân loại',
+                            icon: {
+                                color: 'success',
+                                name: 'heroicons_outline:shield-check'
                             },
-                            confirm: {
-                                color: 'primary',
-                                label: 'Tiếp Tục'
+                            actions: {
+                                cancel: {
+                                    show: false
+                                },
+                                confirm: {
+                                    color: 'primary',
+                                    label: 'Tiếp Tục'
+                                }
                             }
-                        }
-                    }).afterClosed().subscribe(() => {
-                        this.goBack()
+                        }).afterClosed().subscribe(() => {
+                            this.goBack()
+                        });
                     });
-                });
+                }
+
             });
         });
     }

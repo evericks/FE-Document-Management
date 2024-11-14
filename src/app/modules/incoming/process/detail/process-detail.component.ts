@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { messages } from 'app/mock-api/apps/chat/data';
+import { ReturnDialogComponent } from 'app/modules/common/return-dialog/return-dialog.component';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
@@ -35,7 +37,8 @@ export class ProcessDetailComponent implements OnInit {
         private _documentService: DocumentService,
         private _formBuilder: FormBuilder,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _router: Router
+        private _router: Router,
+        private _matDialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -44,11 +47,11 @@ export class ProcessDetailComponent implements OnInit {
             if (document.documentType) {
                 if (this.processSteps = document.documentType.process) {
                     this.processSteps = document.documentType.process.processSteps
+                    this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
                 }
                 this.documentProcesses = document.documentProcesses;
             }
         });
-        this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -140,7 +143,7 @@ export class ProcessDetailComponent implements OnInit {
             }
         }).afterClosed().subscribe(result => {
             if (result === 'confirmed') {
-                this._documentService.returnDocument(id, { message: 'Message trả lại' }).subscribe(() => {
+                this._documentService.returnDocument(id, { message: '' }).subscribe(() => {
                     this._fuseConfirmationService.open({
                         title: 'Thành công',
                         message: 'Văn bản đã được trả lại',
@@ -162,6 +165,17 @@ export class ProcessDetailComponent implements OnInit {
                     });
                 });
             }
+        });
+    }
+
+    openReturnDialog(id: string) {
+        this._matDialog.open(ReturnDialogComponent, {
+            width: '720px',
+            data: {
+                id: id
+            }
+        }).afterClosed().subscribe(result => {
+
         });
     }
 

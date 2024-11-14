@@ -4,12 +4,12 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DocumentType } from 'app/types/document-type.type';
-import { DocumentTypeService } from '../document-type.service';
 import { combineLatest, map, Observable, startWith } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 
 @Component({
     selector: 'document-type-card',
@@ -59,7 +59,6 @@ export class DocumentTypeCardComponent implements OnInit {
     }
 
     submit() {
-
         this._fuseConfirmationService.open({
             title: 'Xác nhận',
             message: 'Bạn chắc chắn muốn phân loại văn bản văn bản này',
