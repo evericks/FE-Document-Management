@@ -120,11 +120,13 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
+            { path: 'documents', loadChildren: () => import('app/modules/setting/document/document.routes') },
             { path: 'users', loadChildren: () => import('app/modules/setting/user/user.routes') },
             { path: 'departments', loadChildren: () => import('app/modules/setting/department/department.routes') },
             { path: 'roles', loadChildren: () => import('app/modules/setting/role/role.routes') },
             { path: 'document-types', loadChildren: () => import('app/modules/setting/document-type/document-type.routes') },
             { path: 'processes', loadChildren: () => import('app/modules/setting/process/process-setting.routes') },
+            { path: 'organizations', loadChildren: () => import('app/modules/setting/organization/organization.routes') },
         ]
     }
 ];

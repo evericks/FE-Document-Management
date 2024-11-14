@@ -50,12 +50,13 @@
             <div class="flex w-full gap-8">
                 <mat-form-field class="w-full">
                     <mat-label>Cơ Quan Ban Hành</mat-label>
-                    <input
-                        type="text"
-                        [formControlName]="'issuingAgency'"
-                        matInput
-                        placeholder="Cơ quan ban hành"
-                    />
+                    <mat-select [formControlName]="'organizationId'">
+                        <ng-container *ngFor="let item of organizations">
+                            <mat-option [value]="item.id">{{
+                                item.name
+                            }}</mat-option>
+                        </ng-container>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field class="w-full">
                     <mat-label>Loại Văn Bản</mat-label>

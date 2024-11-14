@@ -229,24 +229,19 @@
                             </ng-container>
                             <button
                                 mat-raised-button
-                                color="primary"
-                                class="rounded-md"
-                            >
-                                Chuyển Đi
-                            </button>
-                            <button
-                                mat-raised-button
                                 color="warn"
                                 class="rounded-md"
-                                (click)="returnDocument(document.id)"
+                                (click)="onRemoveButtonClicked(document)"
                             >
-                                Chuyển Lại
+                                <mat-icon
+                                    svgIcon="heroicons_outline:trash"
+                                ></mat-icon>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <ng-container *ngIf="document.documentType">
+            <ng-container *ngIf="document.documentType.process">
                 <div class="border-b px-6 py-8 md:px-8">
                     <div class="mb-4 font-semibold">Quy trình xử lý</div>
                     <mat-stepper #stepper [selectedIndex]="selectedIndex + 1">

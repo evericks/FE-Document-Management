@@ -148,6 +148,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'group',
         children: [
             {
+                id: 'documents',
+                title: 'Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:clipboard-document',
+                link: '/settings/documents'
+            },
+            {
                 id: 'users',
                 title: 'Nhân Viên',
                 type: 'basic',
@@ -181,6 +188,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:share',
                 link: '/settings/processes'
+            },
+            {
+                id: 'organizations',
+                title: 'Cơ Quan Ban Hành',
+                type: 'basic',
+                icon: 'heroicons_outline:building-office',
+                link: '/settings/organizations'
             }
         ]
     },
@@ -332,6 +346,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         type: 'group',
         children: [
             {
+                id: 'documents',
+                title: 'Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:clipboard-document',
+                link: '/settings/documents'
+            },
+            {
                 id: 'users',
                 title: 'Nhân Viên',
                 type: 'basic',
@@ -365,6 +386,13 @@ export const compactNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:share',
                 link: '/settings/processes'
+            },
+            {
+                id: 'organizations',
+                title: 'Cơ Quan Ban Hành',
+                type: 'basic',
+                icon: 'heroicons_outline:building-office',
+                link: '/settings/organizations'
             }
         ]
     },
@@ -516,6 +544,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type: 'group',
         children: [
             {
+                id: 'documents',
+                title: 'Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:clipboard-document',
+                link: '/settings/documents'
+            },
+            {
                 id: 'users',
                 title: 'Nhân Viên',
                 type: 'basic',
@@ -549,6 +584,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:share',
                 link: '/settings/processes'
+            },
+            {
+                id: 'organizations',
+                title: 'Cơ Quan Ban Hành',
+                type: 'basic',
+                icon: 'heroicons_outline:building-office',
+                link: '/settings/organizations'
             }
         ]
     },
@@ -700,6 +742,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'group',
         children: [
             {
+                id: 'documents',
+                title: 'Văn Bản',
+                type: 'basic',
+                icon: 'heroicons_outline:clipboard-document',
+                link: '/settings/documents'
+            },
+            {
                 id: 'users',
                 title: 'Nhân Viên',
                 type: 'basic',
@@ -733,6 +782,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:share',
                 link: '/settings/processes'
+            },
+            {
+                id: 'organizations',
+                title: 'Cơ Quan Ban Hành',
+                type: 'basic',
+                icon: 'heroicons_outline:building-office',
+                link: '/settings/organizations'
             }
         ]
     },

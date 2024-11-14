@@ -25,6 +25,15 @@ export class DocumentService {
         return this._documents.asObservable();
     }
 
+    getAllDocuments():
+        Observable<Document[]> {
+        return this._httpClient.get<Document[]>('/api/documents').pipe(
+            tap((response) => {
+                // Set value for current documents
+                this._documents.next(response);
+            }),
+        );
+    }
 
     getDocuments():
         Observable<Document[]> {
@@ -275,14 +284,17 @@ export class DocumentService {
             take(1),
             switchMap(documents => this._httpClient.delete('/api/documents/' + id).pipe(
                 map(() => {
-                    // Find the index of the deleted document
-                    const index = documents.findIndex(item => item.id === id);
+                    if (documents) {
 
-                    // Delete the document
-                    documents.splice(index, 1);
+                        // Find the index of the deleted document
+                        const index = documents.findIndex(item => item.id === id);
 
-                    // Update the documents
-                    this._documents.next(documents);
+                        // Delete the document
+                        documents.splice(index, 1);
+
+                        // Update the documents
+                        this._documents.next(documents);
+                    }
 
                     // Return the deleted status
                     return true;

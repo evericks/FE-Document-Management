@@ -12,9 +12,11 @@ import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DepartmentService } from 'app/modules/setting/department/department.service';
 import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 import { DocumentService } from 'app/modules/setting/document/document.service';
+import { OrganizationService } from 'app/modules/setting/organization/organization.service';
 import { UserService } from 'app/modules/setting/user/user.service';
 import { Department } from 'app/types/department.type';
 import { DocumentType } from 'app/types/document-type.type';
+import { Organization } from 'app/types/organization.type';
 import { User } from 'app/types/user.type';
 
 @Component({
@@ -29,6 +31,7 @@ export class RegisterIncomingComponent implements OnInit {
     registerDocumentForm: FormGroup;
     selectedFiles: File[] = [];
     departments: Department[] = [];
+    organizations: Organization[] = [];
     documentTypes: DocumentType[] = [];
     selectedDepartment: Department;
     users: User[] = [];
@@ -40,13 +43,14 @@ export class RegisterIncomingComponent implements OnInit {
         private _departmentService: DepartmentService,
         private _documentTypeService: DocumentTypeService,
         private _userService: UserService,
+        private _organizationService: OrganizationService,
         private _fuseConfirmationService: FuseConfirmationService
     ) { }
 
     ngOnInit(): void {
         this.registerDocumentForm = this._formBuilder.group({
             code: [null, [Validators.required]],
-            issuingAgency: [null, [Validators.required]],
+            organizationId: [null, [Validators.required]],
             name: [null, [Validators.required]],
             isImportant: [false, [Validators.required]],
             content: [null],
@@ -59,6 +63,10 @@ export class RegisterIncomingComponent implements OnInit {
 
         this._departmentService.departments$.subscribe(departments => {
             this.departments = departments
+        });
+
+        this._organizationService.organizations$.subscribe(organizations => {
+            this.organizations = organizations;
         });
 
         this._documentTypeService.documentTypes$.subscribe(documentTypes => {
