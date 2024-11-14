@@ -7,6 +7,7 @@ import { UserService } from 'app/modules/setting/user/user.service';
 import { forkJoin } from 'rxjs';
 import { EditingComponent } from './editing.component';
 import { EditingHeaderComponent } from './header/editing-header.component';
+import { OrganizationService } from 'app/modules/setting/organization/organization.service';
 
 export default [
     {
@@ -26,6 +27,7 @@ export default [
                         forkJoin({
                             documents: inject(DocumentService).getUserDraftDocuments(),
                             users: inject(UserService).getUsers(),
+                            organizations: inject(OrganizationService).getOrganizations(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),
                         }),

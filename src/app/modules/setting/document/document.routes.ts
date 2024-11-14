@@ -9,6 +9,7 @@ import { forkJoin } from 'rxjs';
 import { DocumentDetailComponent } from './detail/document-detail.component';
 import { DocumentHeaderComponent } from './header/document-header.component';
 import { DocumentComponent } from './document.component';
+import { OrganizationService } from '../organization/organization.service';
 
 export default [
     {
@@ -28,6 +29,7 @@ export default [
                         forkJoin({
                             documents: inject(DocumentService).getAllDocuments(),
                             users: inject(UserService).getUsers(),
+                            organizations: inject(OrganizationService).getOrganizations(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),
                         }),
@@ -42,6 +44,7 @@ export default [
                         return forkJoin({
                             document: inject(DocumentService).getDocumentById(id),
                             users: inject(UserService).getUsers(),
+                            organizations: inject(OrganizationService).getOrganizations(),
                             departments: inject(DepartmentService).getDepartments(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),

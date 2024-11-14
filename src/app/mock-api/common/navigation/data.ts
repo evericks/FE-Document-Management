@@ -34,6 +34,12 @@ export const defaultNavigation: FuseNavigationItem[] = [
                         link: '/incoming-documents/receive'
                     },
                     {
+                        id: 'incoming-documents.return',
+                        title: 'Văn Bản Trả Lại',
+                        type: 'basic',
+                        link: '/incoming-documents/return'
+                    },
+                    {
                         id: 'incoming-documents.classify',
                         title: 'Phân Loại Văn Bản',
                         type: 'basic',
@@ -230,6 +236,12 @@ export const compactNavigation: FuseNavigationItem[] = [
                         title: 'Tiếp Nhận Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/receive'
+                    },
+                    {
+                        id: 'incoming-documents.return',
+                        title: 'Văn Bản Trả Lại',
+                        type: 'basic',
+                        link: '/incoming-documents/return'
                     },
                     {
                         id: 'incoming-documents.classify',
@@ -430,6 +442,12 @@ export const futuristicNavigation: FuseNavigationItem[] = [
                         link: '/incoming-documents/receive'
                     },
                     {
+                        id: 'incoming-documents.return',
+                        title: 'Văn Bản Trả Lại',
+                        type: 'basic',
+                        link: '/incoming-documents/return'
+                    },
+                    {
                         id: 'incoming-documents.classify',
                         title: 'Phân Loại Văn Bản',
                         type: 'basic',
@@ -626,6 +644,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                         title: 'Tiếp Nhận Văn Bản',
                         type: 'basic',
                         link: '/incoming-documents/receive'
+                    },
+                    {
+                        id: 'incoming-documents.return',
+                        title: 'Văn Bản Trả Lại',
+                        type: 'basic',
+                        link: '/incoming-documents/return'
                     },
                     {
                         id: 'incoming-documents.classify',

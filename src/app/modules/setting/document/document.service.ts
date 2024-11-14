@@ -55,6 +55,16 @@ export class DocumentService {
         );
     }
 
+    getUserReturnDocuments():
+        Observable<Document[]> {
+        return this._httpClient.get<Document[]>('/api/documents/users/return').pipe(
+            tap((response) => {
+                // Set value for current documents
+                this._documents.next(response);
+            }),
+        );
+    }
+
     getUserDraftDocuments():
         Observable<Document[]> {
         return this._httpClient.get<Document[]>('/api/documents/users/drafting').pipe(

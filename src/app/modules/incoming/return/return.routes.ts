@@ -6,9 +6,9 @@ import { DocumentTypeService } from 'app/modules/setting/document-type/document-
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { UserService } from 'app/modules/setting/user/user.service';
 import { forkJoin } from 'rxjs';
-import { ProcessDetailComponent } from './detail/process-detail.component';
-import { ProcessHeaderComponent } from './header/process-header.component';
-import { ProcessComponent } from './process.component';
+import { ReturnDetailComponent } from './detail/return-detail.component';
+import { ReturnHeaderComponent } from './header/return-header.component';
+import { ReturnComponent } from './return.component';
 import { OrganizationService } from 'app/modules/setting/organization/organization.service';
 
 export default [
@@ -19,15 +19,15 @@ export default [
     },
     {
         path: '',
-        component: ProcessComponent,
+        component: ReturnComponent,
         children: [
             {
                 path: 'header',
-                component: ProcessHeaderComponent,
+                component: ReturnHeaderComponent,
                 resolve: {
                     combinedData: () =>
                         forkJoin({
-                            documents: inject(DocumentService).getUserPendingProcessingDocuments(),
+                            documents: inject(DocumentService).getUserReturnDocuments(),
                             users: inject(UserService).getUsers(),
                             organizations: inject(OrganizationService).getOrganizations(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
@@ -37,13 +37,14 @@ export default [
             },
             {
                 path: ':id',
-                component: ProcessDetailComponent,
+                component: ReturnDetailComponent,
                 resolve: {
                     combinedData: (activatedRoute: ActivatedRouteSnapshot) => {
                         const id = activatedRoute.params['id'];
                         return forkJoin({
                             document: inject(DocumentService).getDocumentById(id),
                             users: inject(UserService).getUsers(),
+                            organizations: inject(OrganizationService).getOrganizations(),
                             departments: inject(DepartmentService).getDepartments(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),

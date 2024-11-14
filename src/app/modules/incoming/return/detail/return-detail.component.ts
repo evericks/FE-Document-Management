@@ -2,42 +2,39 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
+import { FuseAlertComponent } from '@fuse/components/alert';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { DocumentTypeCardComponent } from 'app/modules/setting/document-type/document-type-card/document-type-card.component';
-import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
 
 
 @Component({
-    selector: 'classify-detail',
-    templateUrl: './classify-detail.component.html',
+    selector: 'return-detail',
+    templateUrl: './return-detail.component.html',
     standalone: true,
     imports: [CommonModule, CustomPipesModule, MatButtonModule,
         MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-        MatInputModule, MatIconModule]
+        MatInputModule, MatIconModule, FuseAlertComponent]
 })
-export class ClassifyDetailComponent implements OnInit {
+export class ReturnDetailComponent implements OnInit {
 
     document$: Observable<Document>;
     processSteps: any[] = [];
     documentProcesses: any[] = [];
+    lastLog: any;
     selectedIndex: number;
     isLinear = false;
 
     constructor(
         private _documentService: DocumentService,
         private _formBuilder: FormBuilder,
-        private _matDialog: MatDialog,
-        private _documentTypeService: DocumentTypeService,
         private _fuseConfirmationService: FuseConfirmationService,
         private _router: Router
     ) { }
@@ -48,11 +45,14 @@ export class ClassifyDetailComponent implements OnInit {
             if (document.documentType) {
                 if (this.processSteps = document.documentType.process) {
                     this.processSteps = document.documentType.process.processSteps
+                    this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
                 }
                 this.documentProcesses = document.documentProcesses;
+                this.lastLog = document.documentLogs.reduce((latest, current) => {
+                    return new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
+                });
             }
         });
-        this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
     }
 
     firstFormGroup = this._formBuilder.group({
@@ -83,16 +83,28 @@ export class ClassifyDetailComponent implements OnInit {
         return this.documentProcesses.find(step => step.processStep.id === stepId) || null;
     }
 
-    classifyButtonClicked(id: string) {
-        this._documentTypeService.getDocumentTypes().subscribe(() => {
-            this._matDialog.open(DocumentTypeCardComponent, {
-                width: '720px',
-                height: '500px'
-            }).afterClosed().subscribe(data => {
-                this._documentService.classifyDocument(id, data.id).subscribe(() => {
+    receiveDocument(id: string) {
+        this._fuseConfirmationService.open({
+            title: 'Xác nhận',
+            message: 'Bạn chắc chắn muốn tiếp nhận văn bản này',
+            icon: {
+                color: 'info',
+            },
+            actions: {
+                cancel: {
+                    label: 'Hủy'
+                },
+                confirm: {
+                    color: 'primary',
+                    label: 'Xác Nhận'
+                }
+            }
+        }).afterClosed().subscribe(result => {
+            if (result === 'confirmed') {
+                this._documentService.receiveDocument(id).subscribe(() => {
                     this._fuseConfirmationService.open({
                         title: 'Thành công',
-                        message: 'Văn bản đã được phân loại',
+                        message: 'Văn bản đã được tiếp nhận',
                         icon: {
                             color: 'success',
                             name: 'heroicons_outline:shield-check'
@@ -110,11 +122,11 @@ export class ClassifyDetailComponent implements OnInit {
                         this.goBack()
                     });
                 });
-            });
+            }
         });
     }
 
     goBack() {
-        this._router.navigate(['/incoming-documents/classify']);
+        this._router.navigate(['/incoming-documents/return']);
     }
 }

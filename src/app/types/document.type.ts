@@ -3,5 +3,6 @@ export interface Document {
     documentTypeId: string,
     documentProcesses: any[],
     documentType: any,
+    documentLogs: any[],
     processes: any[]
 }

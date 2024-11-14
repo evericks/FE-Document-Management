@@ -11,10 +11,12 @@ import { globalGridOptions } from 'app/modules/ag-grid/configuration/ag-grid-glo
 import { DocumentStatusService } from 'app/modules/setting/document-status/document-status.service';
 import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 import { DocumentService } from 'app/modules/setting/document/document.service';
+import { OrganizationService } from 'app/modules/setting/organization/organization.service';
 import { UserService } from 'app/modules/setting/user/user.service';
 import { DocumentStatus } from 'app/types/document-status.type';
 import { DocumentType } from 'app/types/document-type.type';
 import { Document } from 'app/types/document.type';
+import { Organization } from 'app/types/organization.type';
 import { User } from 'app/types/user.type';
 import { getItemNameById } from 'app/utils/common.utils';
 import { formatToMedium, formatToMediumDate } from 'app/utils/datetime.utils';
@@ -33,6 +35,7 @@ export class ProcessHeaderComponent implements OnInit {
     private gridApi: GridApi;
     quickFilter: FormControl = new FormControl(null);
     documentTypes: DocumentType[] = [];
+    organizations: Organization[] = [];
     documentStatuses: DocumentStatus[] = [];
     users: User[] = [];
     colDefs: ColDef[] = [];
@@ -52,6 +55,7 @@ export class ProcessHeaderComponent implements OnInit {
     constructor(
         private _documentService: DocumentService,
         private _userService: UserService,
+        private _organizationService: OrganizationService,
         private _documentStatusService: DocumentStatusService,
         private _documentTypeService: DocumentTypeService,
         private _router: Router,
@@ -64,6 +68,10 @@ export class ProcessHeaderComponent implements OnInit {
 
         this._userService.users$.subscribe(users => {
             this.users = users;
+        });
+
+        this._organizationService.organizations$.subscribe(organizations => {
+            this.organizations = organizations;
         });
 
         this._documentStatusService.documentStatuses$.subscribe(documentStatuses => {
@@ -119,9 +127,9 @@ export class ProcessHeaderComponent implements OnInit {
                 filter: 'agTextColumnFilter',
             },
             {
-                field: 'issuingAgency',
+                field: 'organizationId',
                 headerName: 'Cơ Quan Ban Hành',
-                filter: 'agTextColumnFilter',
+                valueGetter: (params) => getItemNameById(this.organizations, params.data?.organizationId),
             },
             {
                 field: 'senderId',

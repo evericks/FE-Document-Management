@@ -46,7 +46,9 @@ export class ReceiveDetailComponent implements OnInit {
         this.document$ = this._documentService.document$;
         this.document$.subscribe(document => {
             if (document.documentType) {
-                this.processSteps = document.documentType.process.processSteps
+                if (this.processSteps = document.documentType.process) {
+                    this.processSteps = document.documentType.process.processSteps
+                }
                 this.documentProcesses = document.documentProcesses;
             }
         });

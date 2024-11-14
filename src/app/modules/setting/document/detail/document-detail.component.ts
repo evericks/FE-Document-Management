@@ -42,7 +42,9 @@ export class DocumentDetailComponent implements OnInit {
         this.document$.subscribe(document => {
             if (document.documentType) {
                 if (document.documentType.process) {
-                    this.processSteps = document.documentType.process.processSteps
+                    if (this.processSteps = document.documentType.process) {
+                        this.processSteps = document.documentType.process.processSteps
+                    }
                 }
                 this.documentProcesses = document.documentProcesses;
             }

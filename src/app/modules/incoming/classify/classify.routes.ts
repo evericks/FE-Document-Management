@@ -9,6 +9,7 @@ import { forkJoin } from 'rxjs';
 import { ClassifyDetailComponent } from './detail/classify-detail.component';
 import { ClassifyHeaderComponent } from './header/classify-header.component';
 import { ClassifyComponent } from './classify.component';
+import { OrganizationService } from 'app/modules/setting/organization/organization.service';
 
 export default [
     {
@@ -28,6 +29,7 @@ export default [
                         forkJoin({
                             documents: inject(DocumentService).getUserUnclassifiedDocuments(),
                             users: inject(UserService).getUsers(),
+                            organizations: inject(OrganizationService).getOrganizations(),
                             documentTypes: inject(DocumentTypeService).getDocumentTypes(),
                             documentStatuses: inject(DocumentStatusService).getDocumentStatuses(),
                         }),
