@@ -1,0 +1,31 @@
+<div class="-m-6 flex flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="flex h-16 flex-0 items-center justify-between bg-primary pl-6 pr-3 shadow sm:pl-8 sm:pr-5"
+    >
+        <span class="truncate font-medium text-white">
+            Xem Trước Tài Liệu
+        </span>
+        <div>
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                [tabIndex]="-1"
+            >
+                <mat-icon
+                    class="text-white"
+                    [svgIcon]="'heroicons_outline:x-mark'"
+                ></mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="item flex h-full flex-col">
+        <ngx-doc-viewer
+            #docViewer
+            [url]="data.fileUrl"
+            viewer="google"
+            style="width: 100%; height: 100%"
+        ></ngx-doc-viewer>
+    </div>
+</div>

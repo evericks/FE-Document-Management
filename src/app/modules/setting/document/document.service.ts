@@ -312,4 +312,8 @@ export class DocumentService {
             )),
         );
     }
+
+    uploadFile(data) {
+        return this._httpClient.post<any>('/api/documents/preview', data);
+    }
 }

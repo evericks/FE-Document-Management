@@ -15,6 +15,10 @@ import { DocumentType } from 'app/types/document-type.type';
 import { DocumentTypeService } from 'app/modules/setting/document-type/document-type.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DocumentService } from 'app/modules/setting/document/document.service';
+import { PreviewComponent } from 'app/modules/common/preview/preview.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Organization } from 'app/types/organization.type';
+import { OrganizationService } from 'app/modules/setting/organization/organization.service';
 
 @Component({
     selector: 'register-outgoing',
@@ -29,6 +33,7 @@ export class RegisterOutgoingComponent implements OnInit {
     selectedFiles: File[] = [];
     departments: Department[] = [];
     documentTypes: DocumentType[] = [];
+    organizations: Organization[] = [];
     selectedDepartment: Department;
     users: User[] = [];
     today = new Date();
@@ -37,14 +42,16 @@ export class RegisterOutgoingComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _documentService: DocumentService,
         private _departmentService: DepartmentService,
+        private _organizationService: OrganizationService,
         private _documentTypeService: DocumentTypeService,
-        private _userService: UserService
+        private _userService: UserService,
+        private _matDialog: MatDialog
     ) { }
 
     ngOnInit(): void {
         this.registerDocumentForm = this._formBuilder.group({
             code: [null, [Validators.required]],
-            issuingAgency: [null, [Validators.required]],
+            organizationId: [null, [Validators.required]],
             name: [null, [Validators.required]],
             isImportant: [false, [Validators.required]],
             content: [null],
@@ -57,6 +64,10 @@ export class RegisterOutgoingComponent implements OnInit {
 
         this._departmentService.departments$.subscribe(departments => {
             this.departments = departments
+        });
+
+        this._organizationService.organizations$.subscribe(organizations => {
+            this.organizations = organizations;
         });
 
         this._documentTypeService.documentTypes$.subscribe(documentTypes => {
@@ -131,5 +142,28 @@ export class RegisterOutgoingComponent implements OnInit {
         });
 
         this._documentService.createDraftDocument(formData).subscribe();
+    }
+
+    getFileExtension(fileName: string) {
+        return fileName.split('.').pop();
+    }
+
+    getFileUrl(file: File) {
+        return URL.createObjectURL(file);
+    }
+
+    openPreviewDialog(file) {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        this._documentService.uploadFile(formData).subscribe(result => {
+            this._matDialog.open(PreviewComponent, {
+                width: '1080px',
+                height: '680px',
+                data: {
+                    fileName: result.fileName,
+                    fileUrl: result.url
+                }
+            })
+        });
     }
 }
