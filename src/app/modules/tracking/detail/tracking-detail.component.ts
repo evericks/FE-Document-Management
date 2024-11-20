@@ -2,36 +2,33 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
+import { FuseAlertComponent } from '@fuse/components/alert';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { messages } from 'app/mock-api/apps/chat/data';
-import { ReturnDialogComponent } from 'app/modules/common/return-dialog/return-dialog.component';
-import { SendComponent } from 'app/modules/common/send/send.component';
-import { DepartmentService } from 'app/modules/setting/department/department.service';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
 
 
 @Component({
-    selector: 'process-detail',
-    templateUrl: './process-detail.component.html',
+    selector: 'tracking-detail',
+    templateUrl: './tracking-detail.component.html',
     standalone: true,
     imports: [CommonModule, CustomPipesModule, MatButtonModule,
         MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-        MatInputModule, MatIconModule]
+        MatInputModule, MatIconModule, FuseAlertComponent]
 })
-export class ProcessDetailComponent implements OnInit {
+export class TrackingDetailComponent implements OnInit {
 
     document$: Observable<Document>;
     processSteps: any[] = [];
     documentProcesses: any[] = [];
+    lastLog: any;
     selectedIndex: number;
     isLinear = false;
 
@@ -39,9 +36,7 @@ export class ProcessDetailComponent implements OnInit {
         private _documentService: DocumentService,
         private _formBuilder: FormBuilder,
         private _fuseConfirmationService: FuseConfirmationService,
-        private _departmentService: DepartmentService,
         private _router: Router,
-        private _matDialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -53,6 +48,13 @@ export class ProcessDetailComponent implements OnInit {
                     this.selectedIndex = this.getHighestCompletedStepIndex(this.processSteps, this.documentProcesses);
                 }
                 this.documentProcesses = document.documentProcesses;
+                this.lastLog = document.documentLogs.reduce((latest, current) => {
+                    if (current.action === 'Return') {
+                        // Nếu 'latest' không có giá trị hoặc current có ngày lớn hơn
+                        return !latest || new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
+                    }
+                    return latest; // Giữ nguyên 'latest' nếu current không có action === 'Return'
+                }, null); // Khởi tạo latest với null
             }
         });
     }
@@ -128,35 +130,7 @@ export class ProcessDetailComponent implements OnInit {
         });
     }
 
-    openReturnDialog(id: string) {
-        this._matDialog.open(ReturnDialogComponent, {
-            width: '720px',
-            data: {
-                id: id
-            }
-        }).afterClosed().subscribe(result => {
-            if (result === 'success') {
-                this.goBack();
-            }
-        });
-    }
-
-    openSendDialog(id: string) {
-        this._departmentService.getDepartments().subscribe(() => {
-            this._matDialog.open(SendComponent, {
-                width: '720px',
-                data: {
-                    id: id
-                }
-            }).afterClosed().subscribe(result => {
-                if (result === 'success') {
-                    this.goBack();
-                }
-            });
-        });
-    }
-
     goBack() {
-        this._router.navigate(['/incoming-documents/manage-and-process']);
+        this._router.navigate(['/incoming-documents/tracking']);
     }
 }

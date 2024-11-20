@@ -31,7 +31,7 @@ export class ReturnDialogComponent implements OnInit {
     submit() {
         if (this.note.valid) {
             this._documentService.returnDocument(this.data.id, { message: this.note.value }).subscribe(() => {
-                this.matDialogRef.close();
+                this.matDialogRef.close('success');
             })
         }
     }

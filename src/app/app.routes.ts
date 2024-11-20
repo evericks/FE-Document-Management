@@ -93,6 +93,7 @@ export const appRoutes: Route[] = [
             { path: 'classify', loadChildren: () => import('app/modules/incoming/classify/classify.routes') },
             { path: 'register', loadChildren: () => import('app/modules/incoming/register/register-incoming.routes') },
             { path: 'manage-and-process', loadChildren: () => import('app/modules/incoming/process/process.routes') },
+            { path: 'tracking', loadChildren: () => import('app/modules/tracking/tracking.routes') },
         ]
     },
 

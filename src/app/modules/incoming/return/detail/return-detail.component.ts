@@ -49,8 +49,12 @@ export class ReturnDetailComponent implements OnInit {
                 }
                 this.documentProcesses = document.documentProcesses;
                 this.lastLog = document.documentLogs.reduce((latest, current) => {
-                    return new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
-                });
+                    if (current.action === 'Return') {
+                        // Nếu 'latest' không có giá trị hoặc current có ngày lớn hơn
+                        return !latest || new Date(current.createdAt) > new Date(latest.createdAt) ? current : latest;
+                    }
+                    return latest; // Giữ nguyên 'latest' nếu current không có action === 'Return'
+                }, null); // Khởi tạo latest với null
             }
         });
     }

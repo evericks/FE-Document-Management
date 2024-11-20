@@ -45,6 +45,16 @@ export class DocumentService {
         );
     }
 
+    getReferenceDocuments():
+        Observable<Document[]> {
+        return this._httpClient.get<Document[]>('/api/documents/users/references').pipe(
+            tap((response) => {
+                // Set value for current documents
+                this._documents.next(response);
+            }),
+        );
+    }
+
     getUserReceiveDocuments():
         Observable<Document[]> {
         return this._httpClient.get<Document[]>('/api/documents/users/receive').pipe(
@@ -249,6 +259,28 @@ export class DocumentService {
         return this.documents$.pipe(
             take(1),
             switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/return', data).pipe(
+                map((updatedDocument) => {
+
+                    if (documents) {
+
+                        // Update documents
+                        this._documents.next(documents);
+                    }
+
+                    // Update document
+                    this._document.next(updatedDocument);
+
+                    // Return updated document
+                    return updatedDocument;
+                })
+            ))
+        )
+    }
+
+    sendDocument(id: string, data) {
+        return this.documents$.pipe(
+            take(1),
+            switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/send', data).pipe(
                 map((updatedDocument) => {
 
                     if (documents) {

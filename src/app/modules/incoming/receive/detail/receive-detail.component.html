@@ -30,6 +30,15 @@
     <div class="flex min-w-0 flex-auto flex-col">
         <ng-container *ngIf="document$ | async as document">
             <div class="border-b px-6 py-8 md:px-8">
+                <ng-container *ngIf="lastLog?.note">
+                    <fuse-alert
+                        class="mb-4"
+                        [appearance]="'outline'"
+                        [showIcon]="false"
+                        [type]="'info'"
+                        >{{ lastLog.note }}
+                    </fuse-alert>
+                </ng-container>
                 <div class="grid grid-cols-3 gap-8">
                     <div class="flex w-full flex-col gap-4">
                         <div class="w-full">
@@ -239,7 +248,7 @@
                                 mat-raised-button
                                 color="warn"
                                 class="rounded-md"
-                                (click)="returnDocument(document.id)"
+                                (click)="openReturnDialog(document.id)"
                             >
                                 Chuyển Lại
                             </button>

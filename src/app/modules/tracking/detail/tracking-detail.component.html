@@ -27,18 +27,9 @@
         </div>
     </div>
 
-    <div class="flex min-w-0 flex-auto flex-col">
+    <div class="flex min-w-0 flex-auto flex-col overflow-scroll">
         <ng-container *ngIf="document$ | async as document">
             <div class="border-b px-6 py-8 md:px-8">
-                <ng-container *ngIf="lastLog?.note">
-                    <fuse-alert
-                        class="mb-4"
-                        [appearance]="'outline'"
-                        [showIcon]="false"
-                        [type]="'warning'"
-                        >{{ lastLog.note }}
-                    </fuse-alert>
-                </ng-container>
                 <div class="grid grid-cols-3 gap-8">
                     <div class="flex w-full flex-col gap-4">
                         <div class="w-full">
@@ -225,27 +216,6 @@
                             </ng-container>
                         </div>
                     </div>
-                    <div>
-                        <div class="flex gap-2">
-                            <button
-                                mat-raised-button
-                                color="primary"
-                                class="rounded-md"
-                                (click)="receiveDocument(document.id)"
-                            >
-                                Tiếp Nhận
-                            </button>
-                            <ng-container *ngIf="!document.isArchived">
-                                <button
-                                    mat-raised-button
-                                    color="primary"
-                                    class="rounded-md"
-                                >
-                                    Lưu Trữ
-                                </button>
-                            </ng-container>
-                        </div>
-                    </div>
                 </div>
             </div>
             <ng-container *ngIf="document.documentType?.process">
@@ -310,6 +280,48 @@
                                         >
                                     </div>
                                 </ng-container>
+                            </mat-step>
+                        </ng-container>
+                    </mat-stepper>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="document.documentLogs">
+                <div class="border-b px-6 py-8 md:px-8">
+                    <div class="mb-4 font-semibold">Lịch sử xử lý văn bản</div>
+                    <mat-stepper
+                        orientation="vertical"
+                        [linear]="isLinear"
+                        #stepper
+                    >
+                        <ng-container
+                            *ngFor="let item of document.documentLogs"
+                        >
+                            <mat-step [label]="item.action | log">
+                                <div>
+                                    <span> Được thực hiện lúc </span>
+                                    <span class="font-semibold">
+                                        {{ item.createdAt | date: 'hh:mm' }}
+                                    </span>
+                                    <span> ngày </span>
+                                    <span class="font-semibold">
+                                        {{
+                                            item.createdAt | date: 'dd-MM-YYYY'
+                                        }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span> Được thực hiện bởi </span>
+                                    <span class="font-semibold text-blue-700">
+                                        {{ item.user.name }} -
+                                        {{ item.user.phone }}
+                                    </span>
+                                </div>
+                                <div *ngIf="item.note">
+                                    <span> Ghi chú </span>
+                                    <span class="italic">
+                                        {{ item.note }}
+                                    </span>
+                                </div>
                             </mat-step>
                         </ng-container>
                     </mat-stepper>
