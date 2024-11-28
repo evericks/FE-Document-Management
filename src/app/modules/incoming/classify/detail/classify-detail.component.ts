@@ -18,6 +18,7 @@ import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { FuseAlertComponent } from '@fuse/components/alert';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     standalone: true,
     imports: [CommonModule, CustomPipesModule, MatButtonModule,
         MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-        MatInputModule, MatIconModule, MatSlideToggleModule, MatSelectModule]
+        MatInputModule, MatIconModule, MatSlideToggleModule, MatSelectModule, FuseAlertComponent]
 })
 export class ClassifyDetailComponent implements OnInit {
 
@@ -139,11 +140,11 @@ export class ClassifyDetailComponent implements OnInit {
     }
 
     onDocumentTypeChanged(event: any) {
+        this.properties.clear();
         this.additionalInformationForm.controls['documentTypeId'].setValue(event.value.id);
         this._documentTypeService.getAdditionalInformationById(event.value.id).subscribe(
             (adis) => {
                 if (adis && adis.length > 0) {
-                    this.properties.clear();
                     adis.forEach((element) => {
                         const propertyGroup = this._formBuilder.group({
                             key: [element.id, Validators.required],

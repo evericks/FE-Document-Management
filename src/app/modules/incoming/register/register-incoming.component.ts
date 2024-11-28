@@ -52,15 +52,14 @@ export class RegisterIncomingComponent implements OnInit {
 
     ngOnInit(): void {
         this.registerDocumentForm = this._formBuilder.group({
-            code: [null, [Validators.required]],
             organizationId: [null, [Validators.required]],
+            receivingAgencyId: ['ffb639e1-80ec-4985-ace7-e25f615323a4', [Validators.required]],
             name: [null, [Validators.required]],
-            isImportant: [false, [Validators.required]],
             content: [null],
-            documentTypeId: [null],
             receiverId: [null, [Validators.required]],
             dueDate: [null, [Validators.required]],
-            isInternal: [true, [Validators.required]],
+            isImportant: [false, [Validators.required]],
+            isInternal: [false, [Validators.required]],
             isArchived: [false, [Validators.required]],
         });
 

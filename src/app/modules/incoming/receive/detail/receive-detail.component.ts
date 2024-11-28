@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { FuseAlertComponent } from '@fuse/components/alert';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { messages } from 'app/mock-api/apps/chat/data';
 import { ReturnDialogComponent } from 'app/modules/common/return-dialog/return-dialog.component';
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';

@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
+import { FuseAlertComponent } from '@fuse/components/alert';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { ReturnDialogComponent } from 'app/modules/common/return-dialog/return-dialog.component';
@@ -16,6 +17,7 @@ import { DepartmentService } from 'app/modules/setting/department/department.ser
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { Document } from 'app/types/document.type';
 import { Observable } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @Component({
@@ -24,7 +26,7 @@ import { Observable } from 'rxjs';
     standalone: true,
     imports: [CommonModule, CustomPipesModule, MatButtonModule,
         MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-        MatInputModule, MatIconModule]
+        MatInputModule, MatIconModule, FuseAlertComponent, MatMenuModule]
 })
 export class ProcessDetailComponent implements OnInit {
 

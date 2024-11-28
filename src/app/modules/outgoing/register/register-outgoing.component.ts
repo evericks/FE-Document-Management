@@ -50,14 +50,13 @@ export class RegisterOutgoingComponent implements OnInit {
 
     ngOnInit(): void {
         this.registerDocumentForm = this._formBuilder.group({
-            code: [null, [Validators.required]],
             organizationId: ['ffb639e1-80ec-4985-ace7-e25f615323a4', [Validators.required]],
             receivingAgencyId: [null, [Validators.required]],
             name: [null, [Validators.required]],
-            isImportant: [false, [Validators.required]],
+            sendingMethod: [null, [Validators.required]],
             content: [null],
-            documentTypeId: [null],
             receiverId: [null, [Validators.required]],
+            isImportant: [false, [Validators.required]],
             dueDate: [null, [Validators.required]],
             isInternal: [false, [Validators.required]],
             isArchived: [false, [Validators.required]],

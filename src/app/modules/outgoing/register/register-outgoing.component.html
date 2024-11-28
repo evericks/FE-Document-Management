@@ -18,6 +18,7 @@
                 mat-raised-button
                 color="accent"
                 class="rounded-md"
+                [disabled]="!registerDocumentForm.valid"
                 (click)="onDraftSave()"
             >
                 Lưu Bản Nháp
@@ -26,6 +27,7 @@
                 mat-raised-button
                 color="primary"
                 class="rounded-md"
+                [disabled]="!registerDocumentForm.valid"
                 (click)="onSubmit()"
             >
                 Đăng Ký
@@ -67,6 +69,16 @@
                                 item.name
                             }}</mat-option>
                         </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Phương Thức Gửi Đi</mat-label>
+                    <mat-select [formControlName]="'sendingMethod'">
+                        <mat-option [value]="'Post Office'">
+                            Bưu Điện
+                        </mat-option>
+                        <mat-option [value]="'Zalo'"> Zalo </mat-option>
+                        <mat-option [value]="'Email'"> Email </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -133,7 +145,7 @@
                         >
                             <div
                                 id="image-preview"
-                                class="mx-auto h-28 min-h-28 items-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 p-6 text-center"
+                                class="mx-auto flex h-28 min-h-28 items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 p-6 text-center"
                             >
                                 <input
                                     (change)="onFileSelected($event)"
@@ -150,17 +162,13 @@
                                         else noSelectedFiles
                                     "
                                 >
-                                    <div
-                                        class="cursor-pointer text-red-700"
+                                    <button
+                                        mat-raised-button
+                                        color="warn"
                                         (click)="clearSelectedFiles()"
                                     >
                                         Xóa các file đã chọn
-                                    </div>
-                                    <ng-container
-                                        *ngFor="let item of selectedFiles"
-                                    >
-                                        <div>{{ item.name }}</div>
-                                    </ng-container>
+                                    </button>
                                 </ng-container>
                                 <ng-template #noSelectedFiles>
                                     <label for="upload" class="cursor-pointer">
