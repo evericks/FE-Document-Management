@@ -6,10 +6,10 @@ import { DocumentTypeService } from 'app/modules/setting/document-type/document-
 import { DocumentService } from 'app/modules/setting/document/document.service';
 import { UserService } from 'app/modules/setting/user/user.service';
 import { forkJoin } from 'rxjs';
-import { DocumentDetailComponent } from './detail/document-detail.component';
-import { DocumentHeaderComponent } from './header/document-header.component';
-import { DocumentComponent } from './document.component';
 import { OrganizationService } from '../organization/organization.service';
+import { DocumentDetailComponent } from './detail/document-detail.component';
+import { DocumentComponent } from './document.component';
+import { DocumentHeaderComponent } from './header/document-header.component';
 
 export default [
     {

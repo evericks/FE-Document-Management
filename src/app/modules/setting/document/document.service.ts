@@ -299,10 +299,10 @@ export class DocumentService {
         )
     }
 
-    classifyDocument(id: string, documentTypeId) {
+    classifyDocument(id: string, data: any) {
         return this.documents$.pipe(
             take(1),
-            switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/classify/' + documentTypeId, null).pipe(
+            switchMap((documents) => this._httpClient.put<Document>('/api/documents/' + id + '/classify/', data).pipe(
                 map((updatedDocument) => {
 
                     if (documents) {

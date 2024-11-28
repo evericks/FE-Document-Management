@@ -25,7 +25,6 @@ export class DocumentTypeService {
         return this._documentTypes.asObservable();
     }
 
-
     getDocumentTypes():
         Observable<DocumentType[]> {
         return this._httpClient.get<DocumentType[]>('/api/document-types').pipe(
@@ -34,6 +33,10 @@ export class DocumentTypeService {
                 this._documentTypes.next(response);
             }),
         );
+    }
+
+    getAdditionalInformationById(id: string): Observable<any[]> {
+        return this._httpClient.get<any[]>('/api/document-types/additional-informations/' + id);
     }
 
     /**

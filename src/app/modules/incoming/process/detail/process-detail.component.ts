@@ -10,7 +10,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { messages } from 'app/mock-api/apps/chat/data';
 import { ReturnDialogComponent } from 'app/modules/common/return-dialog/return-dialog.component';
 import { SendComponent } from 'app/modules/common/send/send.component';
 import { DepartmentService } from 'app/modules/setting/department/department.service';

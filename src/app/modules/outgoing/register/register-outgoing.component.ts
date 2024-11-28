@@ -32,10 +32,10 @@ export class RegisterOutgoingComponent implements OnInit {
     registerDocumentForm: FormGroup;
     selectedFiles: File[] = [];
     departments: Department[] = [];
+    users: User[] = [];
     documentTypes: DocumentType[] = [];
     organizations: Organization[] = [];
     selectedDepartment: Department;
-    users: User[] = [];
     today = new Date();
 
     constructor(

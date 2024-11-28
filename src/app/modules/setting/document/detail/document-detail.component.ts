@@ -190,6 +190,6 @@ export class DocumentDetailComponent implements OnInit {
     }
 
     goBack() {
-        this._router.navigate(['/settings/documents']);
+        this._router.navigate(['/settings/document-types']);
     }
 }

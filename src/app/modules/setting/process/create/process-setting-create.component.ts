@@ -126,7 +126,7 @@ export class ProcessCreateComponent implements OnInit {
 
     onAddButtonClicked() {
         const newRow = {
-            id: this.rowData.length + 1,
+            id: (this.rowData.length + 1).toString(),
             name: null,
             stepNumber: this.rowData.length + 1,
         };

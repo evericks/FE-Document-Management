@@ -39,6 +39,7 @@ export default [
                         const id = activatedRoute.params['id'];
                         return forkJoin({
                             documentType: inject(DocumentTypeService).getDocumentTypeById(id),
+                            processes: inject(ProcessService).getProcesses(),
                         })
                     }
                 },

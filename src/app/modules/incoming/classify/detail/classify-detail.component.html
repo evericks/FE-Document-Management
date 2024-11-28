@@ -1,25 +1,33 @@
 <div
-    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+    class="bg-card flex min-w-0 flex-auto flex-col overflow-y-scroll dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
 >
-    <!-- Header -->
-    <div
-        class="relative flex flex-0 flex-col border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between md:px-8"
-    >
-        <!-- Title -->
-        <div class="flex flex-col">
-            <div class="text-2xl font-extrabold tracking-tight">
-                Phân Loại Văn Bản
+    <ng-container *ngIf="document$ | async as document">
+        <!-- Header -->
+        <div
+            class="relative flex flex-0 flex-col border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between md:px-8"
+        >
+            <!-- Title -->
+            <div class="flex flex-col">
+                <div class="text-2xl font-extrabold tracking-tight">
+                    Phân Loại Văn Bản
+                </div>
+                <!-- <breadcrumb></breadcrumb> -->
             </div>
-            <!-- <breadcrumb></breadcrumb> -->
+            <!-- Actions -->
+            <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    class="rounded-md"
+                    [disabled]="!additionalInformationForm.valid"
+                    (click)="submit(document.id)"
+                >
+                    Phân Loại
+                </button>
+            </div>
         </div>
-        <!-- Actions -->
-        <div class="mt-6 flex shrink-0 items-center gap-3 sm:ml-4 sm:mt-0">
-            <div class="flex"></div>
-        </div>
-    </div>
 
-    <div class="flex min-w-0 flex-auto flex-col">
-        <ng-container *ngIf="document$ | async as document">
+        <div class="flex min-w-0 flex-auto flex-col overflow-y-scroll">
             <div class="border-b px-6 py-8 md:px-8">
                 <div class="grid grid-cols-3 gap-8">
                     <div class="flex w-full flex-col gap-4">
@@ -211,21 +219,6 @@
                         <div class="flex gap-2">
                             <button
                                 mat-raised-button
-                                color="primary"
-                                class="rounded-md"
-                                (click)="classifyButtonClicked(document.id)"
-                            >
-                                Phân Loại
-                            </button>
-                            <button
-                                mat-raised-button
-                                color="primary"
-                                class="rounded-md"
-                            >
-                                Lưu Trữ
-                            </button>
-                            <button
-                                mat-raised-button
                                 color="warn"
                                 class="rounded-md"
                             >
@@ -235,6 +228,73 @@
                     </div>
                 </div>
             </div>
+            <ng-container *ngIf="!document.documentType">
+                <div class="border-b px-6 py-8 md:px-8">
+                    <form [formGroup]="additionalInformationForm">
+                        <div class="flex gap-4">
+                            <mat-form-field class="w-full">
+                                <mat-label>Loại Văn Bản</mat-label>
+                                <mat-select
+                                    (selectionChange)="
+                                        onDocumentTypeChanged($event)
+                                    "
+                                >
+                                    <ng-container
+                                        *ngFor="let item of documentTypes"
+                                    >
+                                        <mat-option [value]="item">{{
+                                            item.name
+                                        }}</mat-option>
+                                    </ng-container>
+                                </mat-select>
+                            </mat-form-field>
+                            <div
+                                class="flex w-full items-center justify-center gap-4"
+                            >
+                                <mat-slide-toggle
+                                    [formControlName]="'isImportant'"
+                                    color="primary"
+                                    >Văn Bản Quan Trọng</mat-slide-toggle
+                                >
+                                <mat-slide-toggle
+                                    color="primary"
+                                    [formControlName]="'isInternal'"
+                                    >Văn Bản Nội Bộ</mat-slide-toggle
+                                >
+                                <mat-slide-toggle
+                                    color="primary"
+                                    [formControlName]="'isArchived'"
+                                    >Văn Bản Đã Được Lưu Trữ</mat-slide-toggle
+                                >
+                            </div>
+                        </div>
+                        <ng-container *ngIf="additionalInformations.length > 0">
+                            <div class="font-medium">
+                                <div [formArrayName]="'additionalInformations'">
+                                    <ng-container
+                                        *ngFor="
+                                            let item of properties.controls;
+                                            let i = index
+                                        "
+                                        [formGroupName]="i"
+                                    >
+                                        <mat-form-field class="w-full">
+                                            <mat-label>{{
+                                                item.get('label')?.value
+                                            }}</mat-label>
+                                            <input
+                                                matInput
+                                                [formControlName]="'value'"
+                                                required
+                                            />
+                                        </mat-form-field>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </form>
+                </div>
+            </ng-container>
             <ng-container *ngIf="document.documentType?.process">
                 <div class="border-b px-6 py-8 md:px-8">
                     <div class="mb-4 font-semibold">Quy trình xử lý</div>
@@ -302,6 +362,6 @@
                     </mat-stepper>
                 </div>
             </ng-container>
-        </ng-container>
-    </div>
+        </div>
+    </ng-container>
 </div>

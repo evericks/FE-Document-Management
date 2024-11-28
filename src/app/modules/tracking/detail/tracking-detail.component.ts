@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { FuseAlertComponent } from '@fuse/components/alert';
 import { CustomPipesModule } from '@fuse/pipes/custome-pipe.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { DocumentService } from 'app/modules/setting/document/document.service';
@@ -21,7 +20,7 @@ import { Observable } from 'rxjs';
     standalone: true,
     imports: [CommonModule, CustomPipesModule, MatButtonModule,
         MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-        MatInputModule, MatIconModule, FuseAlertComponent]
+        MatInputModule, MatIconModule]
 })
 export class TrackingDetailComponent implements OnInit {
 
