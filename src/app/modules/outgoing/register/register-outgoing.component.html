@@ -39,15 +39,6 @@
         <form [formGroup]="registerDocumentForm">
             <div class="flex w-full gap-8">
                 <mat-form-field class="w-full">
-                    <mat-label>Mã Văn Bản</mat-label>
-                    <input
-                        type="text"
-                        [formControlName]="'code'"
-                        matInput
-                        placeholder="Mã văn bản"
-                    />
-                </mat-form-field>
-                <mat-form-field class="w-full">
                     <mat-label> Tên Văn Bản </mat-label>
                     <input
                         type="text"
@@ -69,9 +60,9 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="w-full">
-                    <mat-label>Loại Văn Bản</mat-label>
-                    <mat-select [formControlName]="'documentTypeId'">
-                        <ng-container *ngFor="let item of documentTypes">
+                    <mat-label>Cơ Quan Tiếp Nhận</mat-label>
+                    <mat-select [formControlName]="'receivingAgencyId'">
+                        <ng-container *ngFor="let item of organizations">
                             <mat-option [value]="item.id">{{
                                 item.name
                             }}</mat-option>
@@ -97,7 +88,7 @@
             <div class="flex w-full gap-8">
                 <div class="flex w-full gap-8">
                     <mat-form-field class="w-full">
-                        <mat-label>Phòng Ban Tiếp Nhận</mat-label>
+                        <mat-label>Phòng Ban Xử Lý</mat-label>
                         <mat-select
                             (selectionChange)="onDepartmentChanged($event)"
                         >
@@ -109,7 +100,7 @@
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="w-full">
-                        <mat-label>Người Nhận</mat-label>
+                        <mat-label>Người Xử Lý</mat-label>
                         <mat-select [formControlName]="'receiverId'">
                             <ng-container *ngFor="let item of users">
                                 <mat-option [value]="item.id">{{
@@ -120,7 +111,7 @@
                     </mat-form-field>
                 </div>
                 <mat-form-field class="w-full">
-                    <mat-label>Hạn Xử Lý</mat-label>
+                    <mat-label>Hạn Chót Xử Lý</mat-label>
                     <input
                         [formControlName]="'dueDate'"
                         [min]="today"
@@ -134,30 +125,7 @@
                     <mat-datepicker #dueDatePicker></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div class="flex w-full gap-8">
-                <div class="flex w-full flex-col gap-4">
-                    <p>
-                        <mat-slide-toggle
-                            [formControlName]="'isImportant'"
-                            color="primary"
-                            >Văn Bản Quan Trọng</mat-slide-toggle
-                        >
-                    </p>
-                    <p>
-                        <mat-slide-toggle
-                            color="primary"
-                            [formControlName]="'isInternal'"
-                            >Văn Bản Nội Bộ</mat-slide-toggle
-                        >
-                    </p>
-                    <p>
-                        <mat-slide-toggle
-                            color="primary"
-                            [formControlName]="'isArchived'"
-                            >Văn Bản Đã Được Lưu Trữ</mat-slide-toggle
-                        >
-                    </p>
-                </div>
+            <div class="mt-4 flex w-full gap-8">
                 <div class="flex w-full flex-col gap-4">
                     <section class="container w-full">
                         <div
